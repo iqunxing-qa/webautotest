@@ -11,7 +11,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Enviroment_auto" enabled="false">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Enviroment_auto" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="WORKINGCOPY" elementType="Argument">
             <stringProp name="Argument.name">WORKINGCOPY</stringProp>
@@ -33,7 +33,7 @@
         <stringProp name="TestPlan.comments">	</stringProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Enviroment" enabled="true">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Enviroment" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
