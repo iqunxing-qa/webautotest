@@ -13,13 +13,12 @@ import time
 import unittest
 import csv
 import ConfigParser
+import os
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
-dir=cf.get('dir','dir')
-data=cf.get('dir','data')
-
-csvfile = file(dir+data+'\depart_login.csv', 'rb')
+path = os.path.abspath('.')
+csvfile = file(path+r'\testdatas\depart_login.csv', 'rb')
 reader = csv.reader(csvfile)
 for line in reader:
     username=line[0].decode('utf-8')
@@ -55,9 +54,8 @@ class department_register(unittest.TestCase):
         browser.find_element_by_link_text(u'客户邀请').click()
         time.sleep(3)
         browser.find_element_by_id('inviteCustomer').click()
-        a=browser.current_window_handle
-        print a
-        browser.find_element_by_id('customerFullName').send_keys('a')
+        time.sleep(2)
+        browser.find_element_by_id('customerFullName').send_keys(u'平安保险')
 
 
     # def tearDown(self):
