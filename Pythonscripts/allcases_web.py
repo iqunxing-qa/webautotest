@@ -6,7 +6,7 @@ import time
 sys.path.append("\webtestcases")
 from webtestcases import *
 import HTMLTestRunner
-listdir=r'E:\Workspace\Pythonscripts\webtestcases'
+listdir=r'D:\Workspace\Pythonscripts\webtestcases'
 # testunit=unittest.TestSuite()
 def creatsuite():
     testunit=unittest.TestSuite()
@@ -28,7 +28,7 @@ alltestcase=creatsuite()
 #runner.run(testunit)
 #定义个报告存放路径，支持相对路径。
 now = time.strftime("%Y-%m-%d-%H",time.localtime(time.time()))
-filename = 'E:\\'+now+'-result.html'
+filename = 'D:\\'+now+'-result.html'
 fp = file(filename, 'wb')
 runner =HTMLTestRunner.HTMLTestRunner(
 stream=fp,

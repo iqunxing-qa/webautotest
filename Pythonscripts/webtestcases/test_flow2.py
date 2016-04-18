@@ -11,11 +11,19 @@ from selenium.webdriver.common.by import By
 # 引入keys类操作
 import time
 import unittest
-# import HTMLTestRunner
+import csv
 import ConfigParser
 cf = ConfigParser.ConfigParser()
-cf.read(r"E:\Workspace\Pythonscripts\environment\env.conf")
+cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
+dir=cf.get('dir','dir')
+data=cf.get('dir','data')
+
+csvfile = file(dir+data+'\depart_login.csv', 'rb')
+reader = csv.reader(csvfile)
+for line in reader:
+    username=line[0].decode('utf-8')
+    password=line[1].decode('utf-8')
 
 def edittextclear(self,text):
     self.driver.keyevent(123)
@@ -33,9 +41,24 @@ def verifycase(a,b):
 class department_register(unittest.TestCase):
     def setUp(self):
         self.browser=webdriver.Firefox()
+        self.browser.maximize_window()
 
     def test_invite(self):
-        self.browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
+        browser=self.browser
+        #admin账户登录
+        browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
+        browser.find_element_by_id('j_user_name').send_keys(username)
+        browser.find_element_by_id('j_password').send_keys(password)
+        browser.find_element_by_id('reg-btn').click()
+        time.sleep(3)
+        #客户邀请
+        browser.find_element_by_link_text(u'客户邀请').click()
+        time.sleep(3)
+        browser.find_element_by_id('inviteCustomer').click()
+        a=browser.current_window_handle
+        print a
+        browser.find_element_by_id('customerFullName').send_keys('a')
 
-    def tearDown(self):
-        self.browser.close()
+
+    # def tearDown(self):
+    #     self.browser.close()
