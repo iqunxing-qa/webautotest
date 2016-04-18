@@ -17,8 +17,9 @@ import os
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
-path = os.path.abspath('.')
-csvfile = file(path+r'\testdatas\depart_login.csv', 'rb')
+method=cf.get('dir','method')
+data=cf.get('dir','data')
+csvfile = file(data+r'\depart_login.csv', 'rb')
 reader = csv.reader(csvfile)
 for line in reader:
     username=line[0].decode('utf-8')
