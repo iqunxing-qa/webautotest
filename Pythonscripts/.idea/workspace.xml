@@ -29,13 +29,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test_flow1.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_flow1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3322314">
+              <caret line="30" column="36" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="36" />
               <folding>
-                <marker date="1461121665653" expanded="true" signature="7199:7270" placeholder="select custo... user" />
+                <marker date="1461127460973" expanded="true" signature="7199:7270" placeholder="select custo... user" />
               </folding>
             </state>
           </provider>
@@ -77,13 +77,13 @@
         <entry file="file://$PROJECT_DIR$/environment/env.conf">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="7" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
+              <caret line="8" column="5" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="depart_login.csv" pinned="false" current-in-tab="true">
+      <file leaf-file-name="depart_login.csv" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testdatas/depart_login.csv">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -138,6 +138,7 @@
         <option value="$PROJECT_DIR$/environment/env.conf" />
         <option value="$PROJECT_DIR$/webtestcases/test_flow2.py" />
         <option value="$PROJECT_DIR$/allcases_web.py" />
+        <option value="$PROJECT_DIR$/webtestcases/test_flow1.py" />
       </list>
     </option>
   </component>
@@ -873,18 +874,8 @@
     <entry file="file://$PROJECT_DIR$/environment/env.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="7" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
+          <caret line="8" column="5" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1461121665653" expanded="true" signature="7199:7270" placeholder="select custo... user" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -893,6 +884,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3322314">
+          <caret line="30" column="36" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="36" />
+          <folding>
+            <marker date="1461127460973" expanded="true" signature="7199:7270" placeholder="select custo... user" />
+          </folding>
         </state>
       </provider>
     </entry>

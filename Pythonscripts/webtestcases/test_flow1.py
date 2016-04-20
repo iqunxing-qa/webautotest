@@ -195,7 +195,12 @@ class Core_Enterprise(unittest.TestCase):
             customername_id = str(customername_id)
             path="//*[@id='table-account']/tbody/tr[@data-customerid="+'"'+customername_id+'"]/td[6]/div/a[2]'
             browser.find_element_by_xpath(path).click()
-            browser.execute_script('''alert("还在继续编写")''')
+            time.sleep(2)
+            #上传照片
+            browser.find_element_by_id("businessLicenseFileupload").click()
+            time.sleep(2)
+            
+
         except NoSuchElementException:
             self.assertTrue(False,"元素未找到")
 
