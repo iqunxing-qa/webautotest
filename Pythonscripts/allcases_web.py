@@ -2,6 +2,7 @@
 import unittest
 import sys
 import time
+import os
 #这里需要导入测试文件
 sys.path.append("\webtestcases")
 from webtestcases import *
@@ -27,12 +28,18 @@ alltestcase=creatsuite()
 #runner = unittest.TextTestRunner()
 #runner.run(testunit)
 #定义个报告存放路径，支持相对路径。
-now = time.strftime("%Y-%m-%d-%H",time.localtime(time.time()))
-filename = 'D:\\'+now+'-result.html'
+month = time.strftime("%Y-%m",time.localtime(time.time()))
+path =  r'D:\\phpStudy\WWW\testreport\\'+month
+try:
+    os.mkdir(path)
+except:
+    os.path.exists(path)
+now = time.strftime("%Y-%m-%d",time.localtime(time.time()))
+filename = path+'\\'+now+'-result.html'
 fp = file(filename, 'wb')
 runner =HTMLTestRunner.HTMLTestRunner(
 stream=fp,
-title=u'天气通测试报告',
+title=u'Web端测试报告',
 description=u'用例执行情况：')
 #执行测试用例
 runner.run(alltestcase)

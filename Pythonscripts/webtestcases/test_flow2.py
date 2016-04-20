@@ -13,13 +13,13 @@ import time
 import unittest
 import csv
 import ConfigParser
+import os
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
-dir=cf.get('dir','dir')
+method=cf.get('dir','method')
 data=cf.get('dir','data')
-
-csvfile = file(dir+data+'\depart_login.csv', 'rb')
+csvfile = file(data+r'\depart_login.csv', 'rb')
 reader = csv.reader(csvfile)
 for line in reader:
     username=line[0].decode('utf-8')
@@ -39,14 +39,17 @@ def verifycase(a,b):
         return False
 
 class department_register(unittest.TestCase):
+    u"机构注册验证"
     def setUp(self):
         self.browser=webdriver.Firefox()
         self.browser.maximize_window()
 
     def test_invite(self):
+        u"平台邀请注册"
         browser=self.browser
         #admin账户登录
         browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
+        time.sleep(3)
         browser.find_element_by_id('j_user_name').send_keys(username)
         browser.find_element_by_id('j_password').send_keys(password)
         browser.find_element_by_id('reg-btn').click()
@@ -55,9 +58,18 @@ class department_register(unittest.TestCase):
         browser.find_element_by_link_text(u'客户邀请').click()
         time.sleep(3)
         browser.find_element_by_id('inviteCustomer').click()
-        a=browser.current_window_handle
-        print a
-        browser.find_element_by_id('customerFullName').send_keys('a')
+        time.sleep(2)
+        browser.find_element_by_id('customerFullName').send_keys(u'平安保险')
+        browser.find_element_by_xpath(".//*[@id='inviteForm']/div[2]/div/div/div[1]/button[2]").click()
+        time.sleep(2)
+        browser.find_element_by_link_text(u'农、林、牧、渔业').click()
+        browser.find_element_by_xpath(".//*[@id='inviteForm']/div[3]/div/div/div[1]/button[2]").click()
+        time.sleep(2)
+        sh=browser.find_element_by_css_selector("#province>li>a[value='310000']")
+        browser.execute_script("arguments[0].scrollIntoView()",sh)
+        sh.click()
+        browser.find_element_by_id('optionsRadios2').click()#选择机构
+
 
 
     # def tearDown(self):
