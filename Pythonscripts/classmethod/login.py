@@ -2,7 +2,7 @@
 from selenium import webdriver
 import csv
 import time
-def login(self,csvpath):
+def corp_login(self,csvpath):
      browser=self.browser
      csvpaths=file(csvpath, 'rb')
      f = csv.reader(csvpaths)
@@ -19,4 +19,21 @@ def login(self,csvpath):
          browser.find_element_by_id('j_user_name').send_keys(username)
          browser.find_element_by_id('j_password').clear()
          browser.find_element_by_id('j_password').send_keys(password)
+
+
+def operate_login(self,csvpath):
+     browser=self.browser
+     csvpaths=file(csvpath, 'rb')
+     f = csv.reader(csvpaths)
+     browser.get('http://t6.dcfservice.com/loginop.jsp')
+     for line in f:
+         #list=line.replace("\n","").split(",")
+         #print list
+         username=line[0]
+         password=line[1]
+         browser.find_element_by_id('j_user_name').clear()
+         browser.find_element_by_id('j_user_name').send_keys(username)
+         browser.find_element_by_id('j_password').clear()
+         browser.find_element_by_id('j_password').send_keys(password)
+         browser.find_element_by_id('reg-btn').click()
 
