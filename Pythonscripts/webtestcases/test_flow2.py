@@ -1,6 +1,6 @@
 # coding:utf-8
 import random
-from classmethod import clipboard
+from classmethod import getprofile
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -15,16 +15,22 @@ import unittest
 import csv
 import ConfigParser
 import os
+#获取主要配置
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
+#获取Firefox的profile
+propath=getprofile.get_profile()
+profile=webdriver.FirefoxProfile(propath)
+#读取运营账户密码
 csvfile = file(data+r'\operation_login.csv', 'rb')
 reader = csv.reader(csvfile)
 for line in reader:
     username=line[0].decode('utf-8')
     password=line[1].decode('utf-8')
+#读取部门注册信息
 csvfile = file(data+r'\depart_login.csv', 'rb')
 reader = csv.reader(csvfile)
 for line in reader:
@@ -36,7 +42,7 @@ class department_register(unittest.TestCase):
     u"机构注册验证"
     @classmethod
     def setUpClass(cls):
-        cls.browser=webdriver.Firefox()
+        cls.browser=webdriver.Firefox(profile)
         cls.browser.maximize_window()
 
     def test_1_invite(self):
@@ -79,28 +85,42 @@ class department_register(unittest.TestCase):
         time.sleep(3)
         browser.find_element_by_css_selector(".btn.btn-danger.createInviteBtn").click()
         time.sleep(8)
-        #新建邀请
-        department_register=browser.execute_script("return document.getElementById('inviteUrl-core').value")
-        browser.get(department_register)
-        time.sleep(3)
+
     def test_2_department_register(self):
         u"机构客户注册"
         browser=self.browser
-        #browser.get(department_register.url)
+        department_register.url=browser.execute_script("return document.getElementById('inviteUrl-core').value")
+        time.sleep(3)
+        browser.get(department_register.url)
         browser.implicitly_wait(3)
+        time.sleep(2)
         browser.find_element_by_id('inputPassword').send_keys('iqunxing1234')
         browser.find_element_by_id('inputRePassword').send_keys('iqunxing1234')
         browser.find_element_by_id('getDynamic').click()
         time.sleep(3)
         now_handle = browser.current_window_handle
         #获取验证码
-        vcode_url=host+'.dcfservice.com/v1/public/sms/get?cellphone='+depart_mobile
+        vcode_url="http://"+host+'.dcfservice.com/v1/public/sms/get?cellphone='+depart_mobile
         js_script='window.open("'+vcode_url+'")'
         print js_script
-        browser.execute_script('''window.open("t6.dcfservice.com/v1/public/sms/get?cellphone=18621982600")''')
+        browser.execute_script(js_script)
         time.sleep(2)
-        vcode=browser.find_element_by_css_selector("html>body>pre").text
-        print vcode
+        all_handles=browser.window_handles
+        for handle in all_handles:
+            if handle != now_handle:
+                print"Switched window is %s" % handle  # 输出待选择的窗口句柄
+                browser.switch_to_window(handle)
+                time.sleep(3)
+        Dynamic_code=browser.find_element_by_css_selector("html>body>pre").text
+        Dynamic_code=Dynamic_code[1:7]
+        print  Dynamic_code #取得验证码
+        #填写验证码
+        browser.switch_to_window(now_handle)
+        browser.find_element_by_id('validateCode').send_keys(Dynamic_code)
+        browser.find_element_by_id('registerbtn').click()
+        time.sleep(5)
+
+
 
 
 
