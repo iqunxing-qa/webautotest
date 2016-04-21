@@ -1,12 +1,18 @@
 #coding=utf-8
 from selenium import webdriver
 import csv
-import time
+import ConfigParser
+cf = ConfigParser.ConfigParser()
+cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
+host=cf.get('service','host')
+method=cf.get('dir','method')
+data=cf.get('dir','data')
+
 def corp_login(self,csvpath):
      browser=self.browser
      csvpaths=file(csvpath, 'rb')
      f = csv.reader(csvpaths)
-     browser.get('http://t6.dcfservice.com/login.jsp')
+     browser.get('http://'+host+'.dcfservice.com/login.jsp')
      for line in f:
          #list=line.replace("\n","").split(",")
          #print list
@@ -25,7 +31,7 @@ def operate_login(self,csvpath):
      browser=self.browser
      csvpaths=file(csvpath, 'rb')
      f = csv.reader(csvpaths)
-     browser.get('http://t6.dcfservice.com/loginop.jsp')
+     browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
      for line in f:
          #list=line.replace("\n","").split(",")
          #print list
