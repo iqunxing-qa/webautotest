@@ -1,5 +1,11 @@
 # coding:utf-8
+<<<<<<< HEAD
+import random
+from classmethod import getprofile
+from classmethod import login
+=======
 
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -48,11 +54,7 @@ class department_register(unittest.TestCase):
         u"平台邀请注册"
         browser=self.browser
         #admin账户登录
-        browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
-        time.sleep(3)
-        browser.find_element_by_id('j_user_name').send_keys(username)
-        browser.find_element_by_id('j_password').send_keys(password)
-        browser.find_element_by_id('reg-btn').click()
+        login.operate_login(slef,operation_login.csv)
         time.sleep(3)
         #客户邀请
         browser.find_element_by_link_text(u'客户邀请').click()
