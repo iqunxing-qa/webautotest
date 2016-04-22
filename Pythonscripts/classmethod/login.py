@@ -8,9 +8,9 @@ host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
 
-def corp_login(self,csvpath):
+def corp_login(self,csv):
      browser=self.browser
-     csvpaths=file(csvpath, 'rb')
+     csvpaths=file(''+data+'csv', 'rb')
      f = csv.reader(csvpaths)
      browser.get('http://'+host+'.dcfservice.com/login.jsp')
      for line in f:
@@ -27,9 +27,9 @@ def corp_login(self,csvpath):
          browser.find_element_by_id('j_password').send_keys(password)
 
 
-def operate_login(self,csvpath):
+def operate_login(self,csv):
      browser=self.browser
-     csvpaths=file(csvpath, 'rb')
+     csvpaths=file(''+data+'csv', 'rb')
      f = csv.reader(csvpaths)
      browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
      for line in f:
