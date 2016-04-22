@@ -28,9 +28,9 @@ def corp_login(self,csvfile):
          browser.find_element_by_id('j_password').send_keys(password)
 
 
-def operate_login(self,csv1):
+def operate_login(self,csvfile):
      browser=self.browser
-     csvpaths=file(''+data+csv1, 'rb')
+     csvpaths=file(''+data+csvfile, 'rb')
      f = csv.reader(csvpaths)
      browser.get('http://'+host+'.dcfservice.com/loginop.jsp')
      for line in f:
