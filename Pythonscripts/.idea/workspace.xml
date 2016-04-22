@@ -14,11 +14,35 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <SUITE FILE_PATH="coverage/Pythonscripts$fanyi.coverage" NAME="flow2 Coverage Results" MODIFIED="1460947367201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
     <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases__1_.coverage" NAME="test_allcases (1) Coverage Results" MODIFIED="1460704890723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/Test" />
+<<<<<<< HEAD
+    <SUITE FILE_PATH="coverage/Pythonscripts$allcases_web.coverage" NAME="allcases_web Coverage Results" MODIFIED="1461136640954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$fanyi.coverage" NAME="flow2 Coverage Results" MODIFIED="1460947367201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases.coverage" NAME="test_allcases Coverage Results" MODIFIED="1461057199648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$Unittests_in_test_flow2.coverage" NAME="Unittests in test_flow2 Coverage Results" MODIFIED="1461056354341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$Unittests_in_test_flow1.coverage" NAME="Unittests in test_flow1 Coverage Results" MODIFIED="1461231647282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+=======
     <SUITE FILE_PATH="coverage/Pythonscripts$Unittests_in_test_flow2.coverage" NAME="Unittests in test_flow2 Coverage Results" MODIFIED="1461056354341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
     <SUITE FILE_PATH="coverage/Pythonscripts$allcases_web.coverage" NAME="allcases_web Coverage Results" MODIFIED="1462095476314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases.coverage" NAME="test_allcases Coverage Results" MODIFIED="1461057199648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+    <SUITE FILE_PATH="coverage/Pythonscripts$allcases_web.coverage" NAME="allcases_web Coverage Results" MODIFIED="1462095476314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$Unittests_in_test_flow2.coverage" NAME="Unittests in test_flow2 Coverage Results" MODIFIED="1461056354341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$fanyi.coverage" NAME="flow2 Coverage Results" MODIFIED="1460947367201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases.coverage" NAME="test_allcases Coverage Results" MODIFIED="1461057199648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases__1_.coverage" NAME="test_allcases (1) Coverage Results" MODIFIED="1460704890723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/Test" />
+>>>>>>> Stashed changes
+=======
+    <SUITE FILE_PATH="coverage/Pythonscripts$allcases_web.coverage" NAME="allcases_web Coverage Results" MODIFIED="1462095476314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$Unittests_in_test_flow2.coverage" NAME="Unittests in test_flow2 Coverage Results" MODIFIED="1461056354341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$fanyi.coverage" NAME="flow2 Coverage Results" MODIFIED="1460947367201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webtestcases" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases.coverage" NAME="test_allcases Coverage Results" MODIFIED="1461057199648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pythonscripts$test_allcases__1_.coverage" NAME="test_allcases (1) Coverage Results" MODIFIED="1460704890723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/Test" />
+>>>>>>> Stashed changes
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -28,12 +52,40 @@
     <favorites_list name="Pythonscripts" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="test_flow1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
+=======
+=======
+>>>>>>> Stashed changes
+    <leaf>
+      <file leaf-file-name="test_flow1.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="30" column="36" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/classmethod/login.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.59570956">
+              <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -42,11 +94,19 @@
       <file leaf-file-name="test_flow2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webtestcases/test_flow2.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="1.7190082">
               <caret line="52" column="33" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
               <folding>
                 <element signature="e#15#28#0" expanded="true" />
               </folding>
+=======
+            <state vertical-scroll-proportion="0.0">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <folding />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
             </state>
           </provider>
         </entry>
@@ -57,6 +117,10 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -136,6 +200,7 @@
         </entry>
       </file>
     </leaf>
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -156,6 +221,7 @@
         <option value="$PROJECT_DIR$/testdatas/depart_login.csv" />
         <option value="$PROJECT_DIR$/environment/env.conf" />
         <option value="$PROJECT_DIR$/allcases_web.py" />
+        <option value="$PROJECT_DIR$/testdatas/core_enterprise_customer.csv" />
         <option value="$PROJECT_DIR$/webtestcases/test_flow1.py" />
         <option value="$PROJECT_DIR$/classmethod/login.py" />
         <option value="$PROJECT_DIR$/webtestcases/test_flow2.py" />
@@ -168,9 +234,12 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-2" />
+    <option name="y" value="-2" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
@@ -201,8 +270,6 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="ProjectPane">
@@ -290,13 +357,14 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Workspace\Pythonscripts\webtestcases" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.allcases_web">
+  <component name="RunManager" selected="Python tests.Unittests in test_flow1">
     <configuration default="false" name="test_allcases" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -363,6 +431,29 @@
       <module name="Pythonscripts" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/webtestcases/test_flow2.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in test_flow1" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/webtestcases" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Pythonscripts" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/webtestcases/test_flow1.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -464,12 +555,7 @@
       <gulpfile />
       <tasks />
       <arguments />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
-      <scripts />
+      <pass-parent-envs>true</pass-parent-envs>
       <envs />
       <method />
     </configuration>
@@ -601,19 +687,21 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.flow2" />
       <item index="1" class="java.lang.String" itemvalue="Python.test_allcases" />
       <item index="2" class="java.lang.String" itemvalue="Python.test_allcases (1)" />
       <item index="3" class="java.lang.String" itemvalue="Python.allcases_web" />
       <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_flow2" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittests in test_flow1" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.allcases_web" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test_allcases" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test_flow2" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test_allcases (1)" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_flow1" />
+        <item index="1" class="java.lang.String" itemvalue="Python.allcases_web" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test_allcases" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_flow2" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test_allcases (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -631,62 +719,118 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 03m 13s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 02m 57s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 04m 04s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 03m 19s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 06m 00s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 04m 08s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 40m 01s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 12m 48s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 42m 43s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 13m 41s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 44m 18s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 17m 18s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 54m 30s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 18m 45s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 14h 55m 38s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 23m 17s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 15h 04m 44s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 24m 30s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_flow2 - 2016.04.19 at 16h 59m 42s.xml">
-      <configuration name="Unittests in test_flow2" configurationId="tests" />
+    <history-entry file="Unittests_in_test_flow1 - 2016.04.21 at 17h 41m 34s.xml">
+      <configuration name="Unittests in test_flow1" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="false" />
+=======
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+=======
+    <frame x="-2" y="-2" width="1382" height="744" extended-state="0" />
+>>>>>>> Stashed changes
+=======
+    <frame x="-2" y="-2" width="1382" height="744" extended-state="0" />
+>>>>>>> Stashed changes
     <editor active="true" />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15885799" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19472913" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2429022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.340694" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39905363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+=======
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+=======
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3408" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+=======
+=======
+>>>>>>> Stashed changes
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15885799" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3408" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -788,7 +932,19 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+            <element signature="e#16#46#0" expanded="false" />
+=======
             <element signature="e#14#29#0" expanded="true" />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+            <element signature="e#14#29#0" expanded="true" />
+>>>>>>> Stashed changes
+=======
+            <element signature="e#14#29#0" expanded="true" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
@@ -841,9 +997,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+<<<<<<< HEAD
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+          <folding>
+            <element signature="e#16#46#0" expanded="false" />
+          </folding>
+=======
+          <folding />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+          <folding />
+>>>>>>> Stashed changes
+=======
+          <folding />
+>>>>>>> Stashed changes
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
         </state>
       </provider>
     </entry>
@@ -877,9 +1051,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+<<<<<<< HEAD
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+          <folding>
+            <element signature="e#16#46#0" expanded="false" />
+          </folding>
+=======
+          <folding />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+          <folding />
+>>>>>>> Stashed changes
+=======
+          <folding />
+>>>>>>> Stashed changes
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
         </state>
       </provider>
     </entry>
@@ -905,9 +1097,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+<<<<<<< HEAD
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+          <folding>
+            <element signature="e#16#46#0" expanded="false" />
+          </folding>
+=======
+          <folding />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+          <folding />
+>>>>>>> Stashed changes
+=======
+          <folding />
+>>>>>>> Stashed changes
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
         </state>
       </provider>
     </entry>
@@ -933,27 +1143,60 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/allcases_web.py">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
           <folding>
             <element signature="e#14#29#0" expanded="true" />
+          </folding>
+=======
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+>>>>>>> Stashed changes
+=======
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webtestcases/test_flow2.py">
+=======
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32594234">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+          <folding>
+            <element signature="e#16#46#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testdatas/operation_login.csv">
+    <entry file="file://$PROJECT_DIR$/environment/env.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="23" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="41" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webtestcases/test_flow1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2256532">
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <folding>
+            <marker date="1461232382681" expanded="true" signature="2694:2768" placeholder="select custo... user" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testdatas/core_enterprise_password.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -961,11 +1204,14 @@
     <entry file="file://$PROJECT_DIR$/testdatas/core_enterprise_customer.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/testdatas/operation_login.csv">
+=======
     <entry file="file://$PROJECT_DIR$/testdatas/depart_login.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -982,26 +1228,72 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/classmethod/login.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/environment/env.conf">
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/environment/env.conf">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="8" column="5" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
+=======
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="30" column="36" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="36" />
+>>>>>>> Stashed changes
+=======
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="30" column="36" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="36" />
+>>>>>>> Stashed changes
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/testdatas/__init__.py">
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-762174762/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44567627">
+          <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+=======
+    <entry file="file://$PROJECT_DIR$/classmethod/login.py">
+>>>>>>> 6b0d8150ae4267a2864647f93ef9b5f65d480b17
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 5e7b7843586679bf7ccd0591314bd0a39cbce34a
+=======
+=======
+>>>>>>> Stashed changes
+    <entry file="file://$PROJECT_DIR$/classmethod/login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59570956">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
