@@ -9,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 import  time
 import unittest
+import  random
 import HTMLTestRunner
 import sys
 import os
@@ -60,7 +61,7 @@ class Core_Enterprise(unittest.TestCase):
         browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
 
         # 运营平台登录
-        login.operate_login("operation_login.csv")
+        login.operate_login(self,"operation_login.csv")
         # browser.find_element_by_id("j_user_name").send_keys(username)
         # browser.find_element_by_id("j_password").send_keys(password)
         # browser.find_element_by_id("reg-btn").click()
@@ -71,7 +72,7 @@ class Core_Enterprise(unittest.TestCase):
         browser.find_element_by_id("inviteCustomer").click()
         time.sleep(1)
         # 客户信息填写
-        browser.find_element_by_id("customerFullName").send_keys(str(enterprise_name + "12"))
+        browser.find_element_by_id("customerFullName").send_keys(enterprise_name+str(random.randrange(1,100000)))
         browser.find_element_by_xpath(".//*[@id='inviteForm']/div[2]/div/div/div[1]/button[2]").click()
         time.sleep(2)
         browser.find_element_by_link_text(u"水利、环境和公共设施管理业").click()
@@ -101,7 +102,6 @@ class Core_Enterprise(unittest.TestCase):
         try:
             invite_core = browser.find_element_by_id("invite-email-core")
         except NoSuchElementException:
-            print "抛出异常，执行JS下代码"
             time.sleep(2)
             browser.switch_to_alert().accept()
             browser.find_element_by_css_selector(".btn.btn-danger.createInviteBtn").click()
@@ -165,8 +165,7 @@ class Core_Enterprise(unittest.TestCase):
         browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
         time.sleep(2)
         # 运营平台登录
-        login.operate_login("operation_login.csv")
-        browser.find_element_by_id("reg-btn").click()
+        login.operate_login(self,"operation_login.csv")
         time.sleep(2)
         # 客户认证
         browser.find_element_by_link_text(u"客户管理")
@@ -267,11 +266,13 @@ class Core_Enterprise(unittest.TestCase):
         # 编辑营业执照
         browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[2]/div/input").send_keys("1111112")#填写营业执照注册号
         time.sleep(1)
+        browser.find_element_by_css_selector('''.radio.col-xs-6>label>input[value="0"]''').click()
+        time.sleep(1)
         start_date=browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[3]/div/div[2]/input[1]")
         browser.execute_script('''arguments[0].value="2012-2-21"''',start_date)
         time.sleep(3)
         end_date=browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[3]/div/div[2]/input[2]")
-        browser.execute_script('''arguments[0].value="2012-2-21"''',end_date)
+        browser.execute_script('''arguments[0].value="2020-2-21"''',end_date)
         time.sleep(3)
         browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[4]/div/div/div[2]/input").send_keys("10000")
         time.sleep(2)
@@ -330,7 +331,7 @@ class Core_Enterprise(unittest.TestCase):
          #填写完所有资料保存
         browser.find_element_by_id("btnSubmit").click()
         time.sleep(3)
-        browser.find_elements_by_link_text("返回列表")
+        browser.find_element_by_link_text(u"返回列表").click()
         time.sleep(2)
         #查看是否被认证
         ver_xpath='''.//*[@id='table-account']/tbody/tr[@data-customerid="'''+customername_id+'''"]/td[4]/span'''
