@@ -12,5 +12,3 @@ def get_profile():
 
 
 
-
-
