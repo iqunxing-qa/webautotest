@@ -130,11 +130,11 @@ class Core_Enterprise(unittest.TestCase):
     def test_2(self):
         (u"启用产品")
         browser=self.browser
-        login.operate_login(self,'operation_login.csv') #登陆
-        time.sleep(2)
-        browser.find_element_by_link_text(u"产品配置").click()
-        time.sleep(2)
+        #login.operate_login(self,'operation_login.csv') #登陆
         try:
+         browser.find_element_by_link_text(u"产品配置").click()
+         time.sleep(2)
+         try:
           # 数据库连接
            conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
            cur = conn.cursor()
@@ -147,21 +147,31 @@ class Core_Enterprise(unittest.TestCase):
                   product_id = row[0]
                   print product_id
            else:
-              print "No date"
-       # 关闭游标和连接
+               print "No date"
+         # 关闭游标和连接
            cur.close()
            conn.close()
-        except mysql.connector.Error, e:
+         except mysql.connector.Error, e:
            print e.message
-        product_id = str(product_id)
-        path="//tr/td[text()="+ product_id +"]/following::td[5]/a[3]"
-        # 点击启用
-        browser.find_element_by_xpath(path).click()
-        time.sleep(5)
-        browser.find_element_by_id('start').click()
-        time.sleep(2)
-       #检验是否启用成功
-        if browser.find_element_by_xpath("//tr/td[text()="+ product_id +"]/following::td[4]").is_displayed():
+         product_id = str(product_id)
+         path="//tr/td[text()="+ product_id +"]/following::td[5]/a[3]"
+         # 点击启用
+         browser.find_element_by_xpath(path).click()
+         time.sleep(5)
+         browser.find_element_by_id('start').click()
+         time.sleep(2)
+        #检验是否启用成功
+         if browser.find_element_by_xpath("//tr/td[text()="+ product_id +"]/following::td[4]").is_displayed():
             print 'Start Success！'
-        else:
+         else:
             print "Start Fail ！"
+        except:
+            fp = StringIO.StringIO()  # 创建内存文件对象
+            traceback.print_exc(file=fp)
+            message = fp.getvalue()
+            index = findStr.findStr(message, "File", 2)
+            message = message[0:index]
+            message = message + e.msg
+            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            self.assertTrue(False, message)
+
