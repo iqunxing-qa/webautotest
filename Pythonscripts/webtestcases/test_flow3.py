@@ -25,6 +25,11 @@ DATABASE=cf.get('dcf_contract','database')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 print shot_path
+csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
+f = csv.reader(csvpaths)
+for line in f:
+ product_name=line[0].decode('utf-8')
+product_type=line[1].decode('utf-8')
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -43,11 +48,6 @@ class Core_Enterprise(unittest.TestCase):
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)
             #新建产品
-            csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
-            f = csv.reader(csvpaths)
-            for line in f:
-              product_name=line[0].decode('utf-8')
-              product_type=line[1].decode('utf-8')
             self.browser.find_element_by_link_text(u"产品配置").click()
             time.sleep(4)
             #product_name=line.decode('utf-8')
@@ -138,7 +138,7 @@ class Core_Enterprise(unittest.TestCase):
           # 数据库连接
            conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
            cur = conn.cursor()
-           sql='select product_pkey from t_product where product_name="haha"'
+           sql='select product_pkey from t_product where product_name="'+ product_name + '"'
            cur.execute(sql)
            result_set = cur.fetchall()
            print result_set
