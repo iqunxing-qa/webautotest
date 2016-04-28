@@ -9,7 +9,6 @@ from selenium.common.exceptions import NoSuchElementException
 import  StringIO
 import traceback
 from classmethod import findStr
-from classmethod.getdate import get_date
 from classmethod import login
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
