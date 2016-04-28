@@ -84,7 +84,7 @@ class Core_Enterprise(unittest.TestCase):
             #将随机生成的客户名称写入core_random_customer中
             csv_random_customer = file(data+'core_random_customer.csv', 'wb')
             writer=csv.writer(csv_random_customer)
-            writer.writerow([Core_Enterprise.enterprise_ranname])
+            writer.writerow([Core_Enterprise.enterprise_ranname,customer_name,enterprise_password,customer_phone])
             csv_random_customer.close()
             browser.find_element_by_id("customerFullName").send_keys(Core_Enterprise.enterprise_ranname)
             #browser.find_element_by_id("customerFullName").send_keys(enterprise_name)
@@ -136,6 +136,7 @@ class Core_Enterprise(unittest.TestCase):
             message = fp.getvalue()
             index = findStr.findStr(message, "File", 2)
             message = message[0:index]
+            message = message + e.msg
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, message)
     def test_2_core_register(self):
@@ -186,6 +187,7 @@ class Core_Enterprise(unittest.TestCase):
             message = fp.getvalue()
             index = findStr.findStr(message, "File", 2)
             message = message[0:index]
+            message = message + e.msg
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, message)
     def test_3_core_authentication(self):
@@ -217,7 +219,7 @@ class Core_Enterprise(unittest.TestCase):
                     for row in result_set:
                         customername_id = row[0]
                 else:
-                    print "No date"
+                    self.assertTrue(False,u"数据库里没有查找出该客户ID")
                 # 关闭游标和连接
                 cur.close()
                 conn.close()
@@ -378,6 +380,7 @@ class Core_Enterprise(unittest.TestCase):
             message = fp.getvalue()
             index = findStr.findStr(message, "File", 2)
             message = message[0:index]
+            message = message + e.msg
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, message)
     @classmethod
@@ -386,3 +389,13 @@ class Core_Enterprise(unittest.TestCase):
         # os.system(comand)
         cls.browser.close()
         cls.browser.quit()
+
+# if __name__ == "__main__":
+#     testsuite=unittest.TestSuite()
+#     testsuite.addTest(Core_Enterprise("test_1_invitation_register"))
+#     testsuite.addTest(Core_Enterprise("test_2_core_register"))
+#     testsuite.addTest(Core_Enterprise("test_3_core_authentication"))
+#     filename = "d:\\result.html"
+#     fp = file(filename, 'wb')
+#     runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title='Result', description='Test_Report')
+#     runner.run(testsuite)

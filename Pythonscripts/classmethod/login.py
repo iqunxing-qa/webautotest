@@ -1,7 +1,7 @@
 #coding=utf-8
-from selenium import webdriver
 import csv
 import ConfigParser
+from selenium import webdriver
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
@@ -26,6 +26,7 @@ def corp_login(self,csvfile):
          browser.find_element_by_id('j_user_name').send_keys(username)
          browser.find_element_by_id('j_password').clear()
          browser.find_element_by_id('j_password').send_keys(password)
+         browser.find_element_by_id("reg-btn").click()
 
 
 def operate_login(self,csvfile):
