@@ -2,12 +2,10 @@
 from unittest.test import test_suite
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from classmethod import getprofile
-from classmethod import login
+from classmethod import *
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
-from classmethod import findStr
 import  time
 import unittest
 import  random
