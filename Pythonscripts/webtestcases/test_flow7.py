@@ -82,13 +82,19 @@ class core_contract(unittest.TestCase):
                 time.sleep(1)
                 browser.find_element_by_id("installCfca").click()#点击立即安装
                 browser.implicitly_wait(30)
+                ###########未写完
 
             except NoSuchElementException,e:
-                print ""
+                print u"该客户已经安装好安全控件"
              #######################################################################
-                browser.find_element_by_xpath(".//*[@id='uploadArea']/div[1]/div[1]/span[1]").click()#点击上传文件
-                time.sleep(2)
-                os.system("D:\\workspace\\Pythonscripts\\classmethod\\upload_transaction_flow.exe")
+            browser.implicitly_wait(10)#恢复隐式查找10S时间
+            browser.find_element_by_xpath(".//*[@id='uploadArea']/div[1]/div[1]/span[1]").click()#点击上传文件
+            time.sleep(2)
+            os.system("D:\\workspace\\Pythonscripts\\classmethod\\upload_transaction_flow.exe")
+            time.sleep(2)
+            browser.find_element_by_id("submit-now").click()
+            ############
+
 
 
 

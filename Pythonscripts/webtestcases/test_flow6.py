@@ -50,7 +50,7 @@ class core_contract(unittest.TestCase):
     (u"核心企业合同登记启用")
     @classmethod
     def setUpClass(cls):
-        cls.browser=webdriver.Firefox()
+        cls.browser=webdriver.Firefox(profile)
         cls.browser.maximize_window()
     def test_1_contract_allocation(self):
         (u"配置核心企业合同")
