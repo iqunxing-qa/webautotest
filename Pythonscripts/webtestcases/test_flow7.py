@@ -3,6 +3,7 @@ from unittest.test import test_suite
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException
 from classmethod import getprofile
 from classmethod import login
 from classmethod import findStr
@@ -54,7 +55,8 @@ class core_contract(unittest.TestCase):
                     browser.find_element_by_xpath("html/body/div[2]/div[1]").click()
             except NoSuchElementException,e:
                 print ""
-            browser.find_element_by_id("addDashBtn").click()#点击新建流水
+            # if browser.find_element_by_id("addDashBtn").is_displayed():
+            browser.execute_script("arguments[0].click()",browser.find_element_by_id("addDashBtn"))#点击新建流水
             time.sleep(1)
             ###########################################
             #            第一次使用安装数字证书       #
@@ -89,10 +91,12 @@ class core_contract(unittest.TestCase):
              #######################################################################
             browser.implicitly_wait(10)#恢复隐式查找10S时间
             browser.find_element_by_xpath(".//*[@id='uploadArea']/div[1]/div[1]/span[1]").click()#点击上传文件
-            time.sleep(2)
+            time.sleep(1)
             os.system("D:\\workspace\\Pythonscripts\\classmethod\\upload_transaction_flow.exe")
             time.sleep(2)
-            browser.find_element_by_id("submit-now").click()
+            if browser.find_element_by_id("submit-now").is_displayed():
+                browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
+
             ############
 
 

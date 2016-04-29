@@ -50,7 +50,6 @@ for line in reader:
     enterprise_password = line[0]
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-print shot_path
 
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
@@ -64,7 +63,6 @@ class Core_Enterprise(unittest.TestCase):
         (u"平台邀请注册")
         browser = self.browser
         browser.implicitly_wait(10)
-        browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
         try:
             # 运营平台登录
             login.operate_login(self,"operation_login.csv")
@@ -192,7 +190,6 @@ class Core_Enterprise(unittest.TestCase):
         (u"核心企业认证")
         browser = self.browser
         browser.implicitly_wait(10)
-        browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
         time.sleep(2)
         try:
             # 运营平台登录

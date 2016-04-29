@@ -56,10 +56,9 @@ class core_contract(unittest.TestCase):
         (u"配置核心企业合同")
         browser=self.browser
         browser.implicitly_wait(10)
-        #登录运营平台
-        login.operate_login(self,"operation_login.csv")
-        time.sleep(1)
         try:
+            # 登录运营平台
+            login.operate_login(self, "operation_login.csv")
             browser.find_element_by_link_text(u"产品配置").click()
             time.sleep(1)
             browser.find_element_by_link_text(u"合同配置").click()

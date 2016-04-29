@@ -3,7 +3,6 @@ from selenium import webdriver
 import time
 import unittest
 import ConfigParser
-from classmethod.getdate import get_date
 import os
 from classmethod import login
 cf = ConfigParser.ConfigParser()
