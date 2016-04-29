@@ -27,8 +27,8 @@ print shot_path
 csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
- product_name=line[0].decode('utf-8')
-product_type=line[1].decode('utf-8')
+  product_name=line[0].decode('utf-8')
+  product_type=line[1].decode('utf-8')
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -102,15 +102,11 @@ class Core_Enterprise(unittest.TestCase):
             except mysql.connector.Error, e:
               print e.message
             product_id = str(product_id)
-
             #将product_id 写入csv
-            '''csvfile = file(''+data +'product_id.csv','wb')
-            print csvfile
-            writer = csv.writer(csvfile)
-            #writer.writerow(['product_id'])
-            datas=[(product_id)]
-            writer.writerows(datas)
-            csvfile.close()'''
+            csvfile =open(''+data +'product_id.csv','w')
+            csvfile.write(product_id)
+            csvfile.close()
+
             path="//tr/td[text()="+ product_id +"]"
             if self.browser.find_element_by_xpath(path).is_displayed():
                  print 'New Success'
@@ -127,10 +123,10 @@ class Core_Enterprise(unittest.TestCase):
             self.assertTrue(False, message)
 
     def test_2(self):
-        (u"启用产品")
-        browser=self.browser
+      (u"启用产品")
+      browser=self.browser
         #login.operate_login(self,'operation_login.csv') #登陆
-        try:
+      try:
          browser.find_element_by_link_text(u"产品配置").click()
          time.sleep(2)
          try:
@@ -164,7 +160,7 @@ class Core_Enterprise(unittest.TestCase):
             print 'Start Success！'
          else:
             print "Start Fail ！"
-        except:
+      except:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()

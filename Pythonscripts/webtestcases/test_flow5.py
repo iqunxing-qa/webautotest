@@ -3,6 +3,9 @@ from selenium import webdriver
 import time
 import unittest
 import ConfigParser
+import  StringIO
+import traceback
+from classmethod import findStr
 import csv
 from classmethod import login
 cf = ConfigParser.ConfigParser()
@@ -10,6 +13,8 @@ cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
+#读取截图存放路径
+shot_path=cf.get('shotpath','path')
 #读取product_id
 csvpaths=file(''+data+'product_id.csv', 'r') #读取 产品名 以及模式
 product_id=csvpaths.readline()
@@ -40,7 +45,7 @@ class Core_Enterprise(unittest.TestCase):
            browser.find_element_by_id('product').click()
            time.sleep(2)
            browser.find_element_by_xpath("//select[@id='product']/option[@value="+product_id+"]").click()
-           browser.find_element_by_xpath("")
+           #browser.find_element_by_xpath("")
 
 
 
@@ -55,5 +60,12 @@ class Core_Enterprise(unittest.TestCase):
 
 
         except:
-            print 'ok'
+            fp = StringIO.StringIO()  # 创建内存文件对象
+            traceback.print_exc(file=fp)
+            message = fp.getvalue()
+            index = findStr.findStr(message, "File", 2)
+            message = message[0:index]
+            #message = message + e.msg
+            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            self.assertTrue(False, message)
 
