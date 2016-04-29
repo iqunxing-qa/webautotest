@@ -33,7 +33,6 @@ class Core_Enterprise(unittest.TestCase):
         (u"新建机构工作方式")
         browser = self.browser
         agencyName='test9'
-
         login.operate_login(self,'operation_login.csv') #登陆
         time.sleep(2)
         browser.find_element_by_link_text(u"产品配置").click()
@@ -106,40 +105,17 @@ class Core_Enterprise(unittest.TestCase):
         (u"启用机构工作方式")
         browser = self.browser
         agencyName='test9'
-
-        login.operate_login(self,'operation_login.csv') #登陆
-        time.sleep(2)
+        #login.operate_login(self,'operation_login.csv') #登陆
         browser.find_element_by_link_text(u"产品配置").click()
         time.sleep(2)
         browser.find_element_by_link_text(u"机构工作方式").click()
         time.sleep(2)
-        try:
-           # 数据库连接
-           conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
-           # 创建游标
-           cur = conn.cursor()
-           # institution_process_model_pkey查询
-           sql='select institution_process_model_pkey from t_institution_process_model where institution_process_model_name="' + agencyName + '"'
-           cur.execute(sql)
-           # 获取查询结果
-           result_set = cur.fetchall()
-           if result_set:
-              for row in result_set:
-                 institution_id = row[0]
-                 print institution_id
-           else:
-              print "No date"
-           # 关闭游标和连接
-           cur.close()
-           conn.close()
-        except mysql.connector.Error, e:
-            print e.message
-        institution_id = str(institution_id)
-        path="//tr[@id=" + institution_id + "]/following::td[4]/a[3]"
-        browser.find_element_by_xpath(path).click()
+        path="//tr/td[text()="+agencyName+"]/following::td[2]/a[3]"
+        browser.find_element_by_xpath(path).click() #点击启用
         time.sleep(3)
-        browser.find_element_by_id('modalBtn').click()
+        browser.find_element_by_id('modalBtn').click() # 确认启用
         time.sleep(1)
+        #检验是否启用成功
         if browser.find_element_by_xpath("").is_displayed():
             print 'Start Success！'
         else:
