@@ -50,7 +50,6 @@ for line in reader:
     enterprise_password = line[0]
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-print shot_path
 
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
@@ -64,7 +63,6 @@ class Core_Enterprise(unittest.TestCase):
         (u"平台邀请注册")
         browser = self.browser
         browser.implicitly_wait(10)
-        browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
         try:
             # 运营平台登录
             login.operate_login(self,"operation_login.csv")
@@ -118,16 +116,16 @@ class Core_Enterprise(unittest.TestCase):
                 time.sleep(2)
                 browser.switch_to_alert().accept()
                 browser.find_element_by_css_selector(".btn.btn-danger.createInviteBtn").click()
-            self.assertEqual(invite_core.text, u"发送邀请", "没有新建成功")
+            self.assertEqual(invite_core.text, u"发送邀请", "Customers can not build success")
             customer_url = browser.execute_script("return document.getElementById('inviteUrl-core').value")
             browser.get(customer_url)
             time.sleep(5)
             jiaru = browser.find_element_by_id("jiaru")
             if jiaru.is_displayed():
-                self.assertTrue(True, "生成邀请连接，邀请成功")
+                self.assertTrue(True, "Generate invitation connection, invite Success!")
                 jiaru.click()
             else:
-                self.assertTrue(False, "生成的邀请连接，无法进入注册页面")
+                self.assertTrue(False, "Generated invitation connection,but unable to enter the registration page!")
         except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -192,7 +190,6 @@ class Core_Enterprise(unittest.TestCase):
         (u"核心企业认证")
         browser = self.browser
         browser.implicitly_wait(10)
-        browser.get("http://" + host + ".dcfservice.com/loginop.jsp")
         time.sleep(2)
         try:
             # 运营平台登录

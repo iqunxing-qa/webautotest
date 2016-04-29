@@ -7,6 +7,7 @@ import  StringIO
 import traceback
 from classmethod import findStr
 import csv
+import os
 from classmethod import login
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
