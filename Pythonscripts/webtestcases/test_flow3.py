@@ -10,6 +10,7 @@ import  StringIO
 import traceback
 from classmethod import findStr
 from classmethod import login
+import random
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
@@ -27,7 +28,9 @@ print shot_path
 csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
-  product_name=line[0].decode('utf-8')
+  a=line[0].decode('utf-8')
+  b=str(random.randint(100, 1000))
+  product_name=a+b
   product_type=line[1].decode('utf-8')
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
