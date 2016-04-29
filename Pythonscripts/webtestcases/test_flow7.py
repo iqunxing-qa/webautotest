@@ -87,7 +87,7 @@ class core_contract(unittest.TestCase):
                 ###########未写完
 
             except NoSuchElementException,e:
-                print u"该客户已经安装好安全控件"
+                print "The customer has installed security controls "
              #######################################################################
             browser.implicitly_wait(10)#恢复隐式查找10S时间
             browser.find_element_by_xpath(".//*[@id='uploadArea']/div[1]/div[1]/span[1]").click()#点击上传文件

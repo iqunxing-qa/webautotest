@@ -63,7 +63,7 @@ class core_contract(unittest.TestCase):
             time.sleep(1)
             browser.find_element_by_link_text(u"合同配置").click()
             time.sleep(1)
-            browser.find_element_by_xpath("html/body/div[1]/div[3]/div/div[1]/div[2]/a").click()
+            browser.execute_script("arguments[0].click()",browser.find_element_by_xpath("html/body/div[1]/div[3]/div/div[1]/div[2]/a"))
             time.sleep(3)
             #####################################################################
             # 登记合同信息                                                      #
@@ -279,8 +279,8 @@ class core_contract(unittest.TestCase):
 
 
 
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.browser.close()
-    #     cls.browser.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
+        cls.browser.quit()
 
