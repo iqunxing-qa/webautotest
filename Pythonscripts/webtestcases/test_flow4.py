@@ -106,6 +106,11 @@ class Core_Enterprise(unittest.TestCase):
         except mysql.connector.Error, e:
             print e.message
         institution_id = str(institution_id)
+        #将institution_id 写入csv
+        csvfile =open(''+data +'agency_id.csv','w')
+        csvfile.write(institution_id)
+        csvfile.close()
+
         path="//tr[@id=" + institution_id + "]/td[text()="+agency_name+"]"
         if browser.find_element_by_xpath(path).is_displayed():
             self.assertTrue(True)

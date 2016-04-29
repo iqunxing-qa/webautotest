@@ -109,9 +109,9 @@ class Core_Enterprise(unittest.TestCase):
 
             path="//tr/td[text()="+ product_id +"]"
             if self.browser.find_element_by_xpath(path).is_displayed():
-                 print 'New Success'
+               self.assertTrue(True)
             else:
-                 print 'New Fail !'
+               self.assertFalse(False)
         except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
