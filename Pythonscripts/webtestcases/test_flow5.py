@@ -1,4 +1,3 @@
-__author__ = 'MP-4DRH8'
 #coding=utf-8
 from selenium import webdriver
 import time
