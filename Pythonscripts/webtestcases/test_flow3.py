@@ -160,7 +160,7 @@ class Core_Enterprise(unittest.TestCase):
             print 'Start Success！'
          else:
             print "Start Fail ！"
-      except:
+      except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
