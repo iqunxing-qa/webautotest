@@ -92,7 +92,8 @@ class core_contract(unittest.TestCase):
             browser.implicitly_wait(10)#恢复隐式查找10S时间
             browser.find_element_by_xpath(".//*[@id='uploadArea']/div[1]/div[1]/span[1]").click()#点击上传文件
             time.sleep(1)
-            os.system("D:\\workspace\\Pythonscripts\\classmethod\\upload_transaction_flow.exe")
+            upload_file = method + "\\upload.exe " + data + "transaction_flow.xlsx"
+            os.system( upload_file)
             time.sleep(2)
             if browser.find_element_by_id("submit-now").is_displayed():
                 browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
