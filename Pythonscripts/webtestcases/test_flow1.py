@@ -234,7 +234,7 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[1]/div/div[1]/div[1]").click()
             time.sleep(2)
             # upload_file路径，上传图片
-            upload_file = method + "\\upload_file.exe"
+            upload_file = method + "\\upload.exe "+data+"test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
             # 通过滑动使上传组织机构代码按钮可视
@@ -244,7 +244,7 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='orgPriImgContainer']/div[1]/div[1]/div[1]").click()
             time.sleep(2)
             # upload_file路径，上传图片
-            upload_file = method + "\\upload_file.exe"
+            upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
             # 通过滑动使上传身份证正面按钮可视
@@ -255,7 +255,7 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[1]/div[1]/div[1]/div[1]").click()
             time.sleep(2)
             # upload_file路径，上传图片
-            upload_file = method + "\\upload_file.exe"
+            upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
             # 通过滑动使上传身份证反面按钮可见
@@ -265,7 +265,7 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[1]/div[2]/div[1]/div[1]").click()
             time.sleep(2)
             # upload_file路径，上传图片
-            upload_file = method + "\\upload_file.exe"
+            upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
             # 通过滑动使操作者手持身份证照片按钮可见
@@ -275,7 +275,7 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='content-form']/div[5]/div[1]/div/div[1]/div[1]").click()
             time.sleep(2)
             # upload_file路径，上传图片
-            upload_file = method + "\\upload_file.exe"
+            upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             #上传完所有图片后，通过控制人员信息栏让营业执照的通过按钮可见
             member=browser.find_element_by_xpath("html/body/div[1]/div[2]/div[2]")
