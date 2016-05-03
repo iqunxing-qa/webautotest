@@ -113,8 +113,8 @@ class Core_Enterprise(unittest.TestCase):
         except mysql.connector.Error, e:
             print e.message
         institution_id = str(institution_id)
-        #将institution_id 写入csv
-        csvfile =open(''+data +'agency_id.csv','w')
+        #将institution_id 追加写入agency_id.csv
+        csvfile =open(''+data +'agency_id.csv','a')
         csvfile.write(institution_id)
         csvfile.close()
         path="//tr[@id=" + institution_id + "]/td[text()='"+agency_name+"']"
@@ -134,28 +134,29 @@ class Core_Enterprise(unittest.TestCase):
         message = message + e.msg
         browser.get_screenshot_as_file(shot_path + browser.title + ".png")
         self.assertTrue(False, message)
+
     def test_2(self):
        (u"启用机构工作方式")
        browser = self.browser
        try:
-          #login.operate_login(self,'operation_login.csv') #登陆
-          #time.sleep(2)
-          #browser.find_element_by_link_text(u"产品配置").click()
-          time.sleep(2)
-          browser.find_element_by_link_text(u"机构工作方式").click()
-          time.sleep(2)
-          path1="//tr/td[text()="+agency_name+"]/following::td[2]/a[3]"
-          time.sleep(2)
-          browser.find_element_by_xpath(path1).click() #点击启用
-          time.sleep(3)
-          browser.find_element_by_id('modalBtn').click() # 确认启用
-          time.sleep(1)
-          #检验是否启用成功
-          path2="//tr/td[text()="+agency_name+"]/following::td[1]/span[text()='已启用']"
-          if browser.find_element_by_xpath(path2).is_displayed():
+           #login.operate_login(self,'operation_login.csv') #登陆
+           #time.sleep(2)
+           #browser.find_element_by_link_text(u"产品配置").click()
+           time.sleep(2)
+           browser.find_element_by_link_text(u"机构工作方式").click()
+           time.sleep(2)
+           path1="//tr/td[text()="+agency_name+"]/following::td[2]/a[3]"
+           time.sleep(2)
+           browser.find_element_by_xpath(path1).click() #点击启用
+           time.sleep(3)
+           browser.find_element_by_id('modalBtn').click() # 确认启用
+           time.sleep(1)
+           #检验是否启用成功
+           path2="//tr/td[text()="+agency_name+"]/following::td[1]/span[text()='已启用']"
+           if browser.find_element_by_xpath(path2).is_displayed():
               print 'ok'
               self.assertTrue(True)
-          else:
+           else:
              self.assertFalse(False)
        except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象

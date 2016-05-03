@@ -32,6 +32,10 @@ for line in f:
   b=str(random.randint(100, 1000))
   product_name=a+b
   product_type=line[1].decode('utf-8')
+  #将product_type写入middle_product，test_flow5中填写协议模板时要用到
+  csvfile =open(''+data +'middle_product.csv','w')
+  csvfile.write(product_type+',')
+  csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -64,15 +68,15 @@ class Core_Enterprise(unittest.TestCase):
             self.browser.find_element_by_id('button-next-1').click()
             self.browser.find_element_by_id('loanPrincipalCredit1').click()
             self.browser.find_element_by_id('button-next-2').click()
-            if product_type=='1+N':
-                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()#放款对象
+            if product_type=='N+1':
+                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='买家']").click()#放款对象
             else:
-                self.browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='买家']").click()
+                self.browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()
             self.browser.find_element_by_name('loanApplicant').click()
-            if product_type=='1+N':
-               self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='卖方']").click()#数据提交方式
+            if product_type=='N+1':
+               self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='买方']").click()#数据提交方式
             else:
-              self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='买方']").click()
+              self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='卖方']").click()
             if product_type=='B2G':
                self.browser.find_element_by_xpath("//input[@name='dataConfirmMethod']/ancestor::label[1]/span[text()='一次性电子确认']").click()#数据确认方式
             else:
@@ -105,8 +109,8 @@ class Core_Enterprise(unittest.TestCase):
             except mysql.connector.Error, e:
               print e.message
             product_id = str(product_id)
-            #将product_id 写入csv
-            csvfile =open(''+data +'product_id.csv','w')
+            #将product_id 写入middle_product.csv
+            csvfile =open(''+data +'middle_product.csv','a')
             csvfile.write(product_id)
             csvfile.close()
 
