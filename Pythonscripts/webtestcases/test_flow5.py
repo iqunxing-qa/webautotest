@@ -29,12 +29,12 @@ shot_path=cf.get('shotpath','path')
 csvpaths=file(''+data+'middle_product.csv', 'r') #读取 产品id以及模式
 f=csv.reader(csvpaths)
 for line in f:
-    product_type=line[0]
+    product_type=line[0].decode('utf-8')
     product_id=line[1]
-    print product_id,product_type
+    print product_type,product_id
 #定义方案名称
 a=str(random.randint(100, 1000))
-solution_name=(u'哈哈哈哈哈')+a
+solution_name=((u'哈哈哈哈哈')+a).decode('utf-8')
 #读取模板文件名称
 csvfile =file(''+data +'middle_agency.csv','rb')
 f=csv.reader(csvfile)
@@ -69,7 +69,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(2)
             browser.find_element_by_id('product').click()
             time.sleep(2)
-            browser.find_element_by_xpath("//select[@id='product']/option[@value="+ product_id +"]").click()#产品名
+            browser.find_element_by_xpath("//select[@id='product']/option[@value='"+product_id+"']").click()#产品名
             browser.find_element_by_id('institution-process').click()
             time.sleep(2)
             browser.find_element_by_xpath("//select[@id='institution-process']/option[@value="+agency_id+"]").click()#机构工作方式
@@ -136,8 +136,8 @@ class Core_Enterprise(unittest.TestCase):
        (u"启用方案")
        browser = self.browser
        try:
-          time.sleep(2)
-          browser.find_element_by_link_text(u"方案配置").click()
+          time.sleep(3)
+          #browser.find_element_by_link_text(u"方案配置").click()
           time.sleep(2)
           path1="//tr/td[text()="+solution_name+"]/following::td[5]/a[3]"
           time.sleep(2)

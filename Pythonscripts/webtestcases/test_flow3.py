@@ -134,39 +134,20 @@ class Core_Enterprise(unittest.TestCase):
       browser=self.browser
         #login.operate_login(self,'operation_login.csv') #登陆
       try:
-         browser.find_element_by_link_text(u"产品配置").click()
-         time.sleep(2)
-         try:
-          # 数据库连接
-           conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
-           cur = conn.cursor()
-           sql='select product_pkey from t_product where product_name="'+ product_name + '"'
-           cur.execute(sql)
-           result_set = cur.fetchall()
-           print result_set
-           if result_set:
-               for row in result_set:
-                  product_id = row[0]
-                  print product_id
-           else:
-               print "No date"
-         # 关闭游标和连接
-           cur.close()
-           conn.close()
-         except mysql.connector.Error, e:
-           print e.message
-         product_id = str(product_id)
-         path="//tr/td[text()="+ product_id +"]/following::td[5]/a[3]"
+         # browser.find_element_by_link_text(u"产品配置").click()
+         time.sleep(3)
+         path="//tr/td[text()='"+product_name+"']/following::td[4]/a[3]"
+         print path
          # 点击启用
          browser.find_element_by_xpath(path).click()
          time.sleep(5)
          browser.find_element_by_id('start').click()
          time.sleep(2)
         #检验是否启用成功
-         if browser.find_element_by_xpath("//tr/td[text()="+ product_id +"]/following::td[4]").is_displayed():
-            print 'Start Success！'
+         if browser.find_element_by_xpath("//tr/td[text()='"+ product_name +"']/following::td[3]").is_displayed():
+            print 'Start Success!'
          else:
-            print "Start Fail ！"
+            print "Start Fail !"
       except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
