@@ -30,7 +30,7 @@ f = csv.reader(csvpaths)
 for line in f:
   a=line[0].decode('utf-8')
   b=str(random.randint(100, 1000))
-  agency_name=a+b
+  agency_name=(a+b).decode('utf-8')
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -143,7 +143,7 @@ class Core_Enterprise(unittest.TestCase):
            #time.sleep(2)
            #browser.find_element_by_link_text(u"产品配置").click()
            time.sleep(2)
-           browser.find_element_by_link_text(u"机构工作方式").click()
+           #browser.find_element_by_link_text(u"机构工作方式").click()
            time.sleep(2)
            path1="//tr/td[text()="+agency_name+"]/following::td[2]/a[3]"
            time.sleep(2)
