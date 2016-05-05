@@ -127,15 +127,16 @@ class Core_Enterprise(unittest.TestCase):
                 jiaru.click()
             else:
                 self.assertTrue(False, "Generated invitation connection,but unable to enter the registration page!")
-        except NoSuchElementException,e:
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message = message + e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
+            self.assertTrue(False, print_message)
     def test_2_core_register(self):
         (u"核心企业注册")
         browser = self.browser
@@ -178,15 +179,16 @@ class Core_Enterprise(unittest.TestCase):
                 self.assertTrue(True, "客户注册成功")
             else:
                 self.assertTrue(False, "客户注册失败")
-        except NoSuchElementException,e:
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message = message + e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
+            self.assertTrue(False, print_message)
     def test_3_core_authentication(self):
         (u"核心企业认证")
         browser = self.browser
@@ -370,15 +372,16 @@ class Core_Enterprise(unittest.TestCase):
             else:
                 self.assertTrue(False,"客户资料已填写，但是提交后客户认证失败")
             time.sleep(5)
-        except NoSuchElementException,e:
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message = message + e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
+            self.assertTrue(False, print_message)
     @classmethod
     def tearDownClass(cls):
         # comand = "mysql -h t6.db.dcfservice.com -uroot -pdcf2014<\"D:\workspace\Pythonscripts\classmethod\delete.sql\""

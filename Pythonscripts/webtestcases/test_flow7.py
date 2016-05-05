@@ -21,6 +21,7 @@ import traceback
 reload(sys)
 sys.setdefaultencoding('utf8')
 import csv
+import win32com.client
 import ConfigParser
 import mysql.connector
 #读取全局配置文件
@@ -39,6 +40,21 @@ class core_contract(unittest.TestCase):
     (u"新建流水模块")
     @classmethod
     def setUpClass(cls):
+        xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+        xlBook = xlApp.Workbooks.Open(
+            r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将D:\\1.xls改为要处理的excel文件路径
+        xlSht = xlBook.Worksheets('sheet1')
+        lcoal_time = str(time.strftime("%Y/%m/%d", time.localtime()))
+        loan_document_no = "aaRYX" + str(random.randrange(1, 100000))
+        # 将随机生成的单据编号写入random_loan_no.csv中
+        csv_random_loan = file(data + 'random_loan_no.csv', 'wb')
+        writer = csv.writer(csv_random_loan)
+        writer.writerow([loan_document_no])
+        csv_random_loan.close()
+        xlSht.Cells(2, 5).Value = lcoal_time  # 修改单据起始时间
+        xlSht.Cells(2, 1).Value = loan_document_no  # 随机生成单据编号
+        xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+        del xlApp
         cls.browser=webdriver.Firefox(profile)
         cls.browser.maximize_window()
     def test_1_contract_allocation(self):
@@ -95,54 +111,49 @@ class core_contract(unittest.TestCase):
             upload_file = method + "\\upload.exe " + data + "transaction_flow.xlsx"
             os.system( upload_file)
             time.sleep(2)
-            if browser.find_element_by_id("submit-now").is_displayed():
-                browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
-
-
-            ############
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        except NoSuchElementException,e:
+            browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
+            time.sleep(2)
+            browser.find_element_by_xpath(".//*[@id='uploadArea']/div[3]/a").click()
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message=message+e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
+            self.assertTrue(False, print_message)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # def test_2_contract_awaken(self):
     #     (u"产看流水是否新建成功")
     #     browser=self.browser
