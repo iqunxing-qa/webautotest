@@ -197,6 +197,6 @@ class department_register(unittest.TestCase):
 
 
 
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.browser.close()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
