@@ -98,6 +98,7 @@ class core_contract(unittest.TestCase):
             if browser.find_element_by_id("submit-now").is_displayed():
                 browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
 
+
             ############
 
 

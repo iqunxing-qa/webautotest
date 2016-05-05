@@ -116,6 +116,7 @@ class Core_Enterprise(unittest.TestCase):
                 time.sleep(2)
                 browser.switch_to_alert().accept()
                 browser.find_element_by_css_selector(".btn.btn-danger.createInviteBtn").click()
+            time.sleep(2)
             self.assertEqual(invite_core.text, u"发送邀请", "Customers can not build success")
             customer_url = browser.execute_script("return document.getElementById('inviteUrl-core').value")
             browser.get(customer_url)
@@ -139,7 +140,7 @@ class Core_Enterprise(unittest.TestCase):
         (u"核心企业注册")
         browser = self.browser
         browser.implicitly_wait(10)
-        time.sleep(2)
+        time.sleep(4)
         try:
             # 填写注册信息
             browser.find_element_by_id("inputPassword").send_keys(enterprise_password)
@@ -214,7 +215,7 @@ class Core_Enterprise(unittest.TestCase):
                     for row in result_set:
                         customername_id = row[0]
                 else:
-                    self.assertTrue(False,u"数据库里没有查找出该客户ID")
+                    self.assertTrue(False,"the customer_id do not exsit in database!")
                 # 关闭游标和连接
                 cur.close()
                 conn.close()

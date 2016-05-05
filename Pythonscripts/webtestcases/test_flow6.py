@@ -59,6 +59,7 @@ class core_contract(unittest.TestCase):
         try:
             # 登录运营平台
             login.operate_login(self, "operation_login.csv")
+            time.sleep(2)
             browser.find_element_by_link_text(u"产品配置").click()
             time.sleep(1)
             browser.find_element_by_link_text(u"合同配置").click()
@@ -109,7 +110,7 @@ class core_contract(unittest.TestCase):
             time.sleep(1)
             Select(browser.find_element_by_id("city")).select_by_value(u"上海市")
             time.sleep(1)
-            Select(browser.find_element_by_id("child-bank")).select_by_value("64122")#选择光大银行上海浦东支行
+            Select(browser.find_element_by_id("child-bank")).select_by_visible_text("中国光大银行上海浦东支行")#选择光大银行上海浦东支行
             time.sleep(1)
             browser.find_element_by_id("bank-selecting").click()#确定选择
             time.sleep(1)
@@ -151,7 +152,7 @@ class core_contract(unittest.TestCase):
             time.sleep(1)
             Select(browser.find_element_by_id("city")).select_by_value(u"上海市")
             time.sleep(1)
-            Select(browser.find_element_by_id("child-bank")).select_by_value("64122")  # 选择光大银行上海浦东支行
+            Select(browser.find_element_by_id("child-bank")).select_by_visible_text("中国光大银行上海浦东支行")  # 选择光大银行上海浦东支行
             time.sleep(1)
             browser.find_element_by_id("bank-selecting").click()
             time.sleep(1)
@@ -173,7 +174,7 @@ class core_contract(unittest.TestCase):
             time.sleep(1)
             Select(browser.find_element_by_id("city")).select_by_value(u"上海市")
             time.sleep(1)
-            Select(browser.find_element_by_id("child-bank")).select_by_value("64122")  # 选择光大银行上海浦东支行
+            Select(browser.find_element_by_id("child-bank")).select_by_visible_text("中国光大银行上海浦东支行")  # 选择光大银行上海浦东支行
             time.sleep(1)
             browser.find_element_by_id("bank-selecting").click()
             time.sleep(1)
@@ -235,6 +236,7 @@ class core_contract(unittest.TestCase):
 
 
 
+
         except NoSuchElementException,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -278,9 +280,9 @@ class core_contract(unittest.TestCase):
 
 
 
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.close()
-        cls.browser.quit()
+    #
+    # @classmethod
+    # def tearDownClass(cls):
+    #     cls.browser.close()
+    #     cls.browser.quit()
 
