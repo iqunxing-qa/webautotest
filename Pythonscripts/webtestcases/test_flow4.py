@@ -18,11 +18,11 @@ host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
 #读取数据库文件
-USER=cf.get('dcf_contract','user')
-HOST=cf.get('dcf_contract','host')
-PASSWORD=cf.get('dcf_contract','password')
-PORT=cf.get('dcf_contract','port')
-DATABASE=cf.get('dcf_contract','database')
+USER=cf.get('database','user')
+HOST=cf.get('database','host')
+PASSWORD=cf.get('database','password')
+PORT=cf.get('database','port')
+DATABASE=cf.get('database','dcf_contract')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 csvpaths=file(''+data+'agency_name.csv', 'rb') #读取 angency_name
@@ -37,7 +37,7 @@ class Core_Enterprise(unittest.TestCase):
     def setUpClass(cls):
         cls.browser = webdriver.Firefox()
         cls.browser.maximize_window()
-    def Create_institution(self):
+    def test_Create_institution(self):
         (u"新建机构工作方式")
         browser = self.browser
         try:
@@ -80,7 +80,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(5)
             browser.find_element_by_xpath("//span[text()='+创建微合同']").click()
             browser.find_element_by_id('creatAgency').click()
-            time.sleep(2)
+            time.sleep(4)
             browser.find_element_by_link_text(u'返回列表').click()
             time.sleep(2)
             browser.find_element_by_id('search-button').click()
@@ -130,7 +130,7 @@ class Core_Enterprise(unittest.TestCase):
                 time.sleep(1)
                 browser.get_screenshot_as_file(shot_path + browser.title + ".png")
                 self.assertTrue(False, print_message)
-    def Enable_institution(self):
+    def test_Enable_institution(self):
         (u"启用机构工作方式")
         browser = self.browser
         try:
