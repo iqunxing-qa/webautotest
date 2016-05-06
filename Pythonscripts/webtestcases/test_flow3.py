@@ -10,6 +10,7 @@ import  StringIO
 import traceback
 from classmethod import findStr
 from classmethod import login
+import random
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
@@ -27,8 +28,14 @@ print shot_path
 csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
-  product_name=line[0].decode('utf-8')
+  a=line[0].decode('utf-8')
+  b=str(random.randint(100, 1000))
+  product_name=a+b
   product_type=line[1].decode('utf-8')
+  #将product_type写入middle_product，test_flow5中填写协议模板时要用到
+  csvfile =open(''+data +'middle_product.csv','w')
+  csvfile.write(product_type+',')
+  csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -40,7 +47,7 @@ class Core_Enterprise(unittest.TestCase):
         cls.browser.close()
         cls.browser.quit()
 
-    def test_1(self):
+    def Create_product(self):
         (u"新建产品")
         browser=self.browser
         try:
@@ -61,15 +68,15 @@ class Core_Enterprise(unittest.TestCase):
             self.browser.find_element_by_id('button-next-1').click()
             self.browser.find_element_by_id('loanPrincipalCredit1').click()
             self.browser.find_element_by_id('button-next-2').click()
-            if product_type=='1+N':
-                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()#放款对象
+            if product_type=='N+1':
+                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='买家']").click()#放款对象
             else:
-                self.browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='买家']").click()
+                self.browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()
             self.browser.find_element_by_name('loanApplicant').click()
-            if product_type=='1+N':
-               self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='卖方']").click()#数据提交方式
+            if product_type=='N+1':
+               self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='买方']").click()#数据提交方式
             else:
-              self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='买方']").click()
+              self.browser.find_element_by_xpath("//input[@name='dataProvider']/ancestor::label[1]/span[text()='卖方']").click()
             if product_type=='B2G':
                self.browser.find_element_by_xpath("//input[@name='dataConfirmMethod']/ancestor::label[1]/span[text()='一次性电子确认']").click()#数据确认方式
             else:
@@ -102,71 +109,50 @@ class Core_Enterprise(unittest.TestCase):
             except mysql.connector.Error, e:
               print e.message
             product_id = str(product_id)
-            #将product_id 写入csv
-            csvfile =open(''+data +'product_id.csv','w')
+            #将product_id 写入middle_product.csv
+            csvfile =open(''+data +'middle_product.csv','a')
             csvfile.write(product_id)
             csvfile.close()
-
             path="//tr/td[text()="+ product_id +"]"
             if self.browser.find_element_by_xpath(path).is_displayed():
                self.assertTrue(True)
             else:
                self.assertFalse(False)
-        except NoSuchElementException,e:
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message = message + e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
-
-    def test_2(self):
+            self.assertTrue(False, print_message)
+    def Enable_product(self):
       (u"启用产品")
       browser=self.browser
-        #login.operate_login(self,'operation_login.csv') #登陆
       try:
-         browser.find_element_by_link_text(u"产品配置").click()
+         # browser.find_element_by_link_text(u"产品配置").click()
          time.sleep(2)
-         try:
-          # 数据库连接
-           conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
-           cur = conn.cursor()
-           sql='select product_pkey from t_product where product_name="'+ product_name + '"'
-           cur.execute(sql)
-           result_set = cur.fetchall()
-           print result_set
-           if result_set:
-               for row in result_set:
-                  product_id = row[0]
-                  print product_id
-           else:
-               print "No date"
-         # 关闭游标和连接
-           cur.close()
-           conn.close()
-         except mysql.connector.Error, e:
-           print e.message
-         product_id = str(product_id)
-         path="//tr/td[text()="+ product_id +"]/following::td[5]/a[3]"
+         path="//tr/td[text()='"+product_name+"']/following::td[4]/a[3]"
          # 点击启用
          browser.find_element_by_xpath(path).click()
          time.sleep(5)
          browser.find_element_by_id('start').click()
          time.sleep(2)
         #检验是否启用成功
-         if browser.find_element_by_xpath("//tr/td[text()="+ product_id +"]/following::td[4]").is_displayed():
-            print 'Start Success！'
+         if browser.find_element_by_xpath("//tr/td[text()='"+ product_name +"']/following::td[3]").is_displayed():
+            print 'Start Success!'
          else:
-            print "Start Fail ！"
-      except NoSuchElementException,e:
+            print "Start Fail !"
+      except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message = message + e.msg
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
+            self.assertTrue(False, print_message)
 
