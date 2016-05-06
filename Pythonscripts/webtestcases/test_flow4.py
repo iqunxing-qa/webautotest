@@ -31,6 +31,12 @@ for line in f:
   a=line[0].decode('utf-8')
   b=str(random.randint(100, 1000))
   agency_name=(a+b).decode('utf-8')
+#在middle_agency.csv写入文档名
+csvfile =file(''+data +'middle_agency.csv','wb')
+writer=csv.writer(csvfile)
+file=(['protocol_document','control_document','contract_document'])
+writer.writerow(file)
+csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -135,8 +141,6 @@ class Core_Enterprise(unittest.TestCase):
         browser = self.browser
         try:
            time.sleep(2)
-           #browser.find_element_by_link_text(u"机构工作方式").click()
-           #time.sleep(2)
            path1="//tr/td[text()='"+agency_name+"']/following::td[2]/a[3]"
            time.sleep(1)
            browser.find_element_by_xpath(path1).click() #点击启用

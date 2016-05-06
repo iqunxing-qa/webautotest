@@ -127,7 +127,6 @@ class Core_Enterprise(unittest.TestCase):
       (u"启用产品")
       browser=self.browser
       try:
-         # browser.find_element_by_link_text(u"产品配置").click()
          time.sleep(2)
          path="//tr/td[text()='"+product_name+"']/following::td[4]/a[3]"
          # 点击启用
