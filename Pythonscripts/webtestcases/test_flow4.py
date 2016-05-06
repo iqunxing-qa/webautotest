@@ -113,8 +113,8 @@ class Core_Enterprise(unittest.TestCase):
         except mysql.connector.Error, e:
             print e.message
         institution_id = str(institution_id)
-        #将institution_id 追加写入agency_id.csv
-        csvfile =open(''+data +'agency_id.csv','a')
+        #将institution_id 追加写入middle_agency.csv
+        csvfile =open(''+data +'middle_agency.csv','a')
         csvfile.write(institution_id)
         csvfile.close()
         path="//tr[@id=" + institution_id + "]/td[text()='"+agency_name+"']"
