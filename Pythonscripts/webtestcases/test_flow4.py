@@ -31,12 +31,12 @@ for line in f:
   a=line[0].decode('utf-8')
   b=str(random.randint(100, 1000))
   agency_name=(a+b).decode('utf-8')
-#在middle_agency.csv写入文档名
-csvfile =file(''+data +'middle_agency.csv','wb')
-writer=csv.writer(csvfile)
-file=(['protocol_document','control_document','contract_document'])
-writer.writerow(file)
-csvfile.close()
+# #在middle_agency.csv写入文档名
+# csvfile =file(''+data +'middle_agency.csv','wb')
+# writer=csv.writer(csvfile)
+# file=(['protocol_document','control_document','contract_document'])
+# writer.writerow(file)
+# csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -115,8 +115,10 @@ class Core_Enterprise(unittest.TestCase):
                  print e.message
             institution_id = str(institution_id)
             #将institution_id 追加写入middle_agency.csv
-            csvfile =open(''+data +'middle_agency.csv','a')
-            csvfile.write(institution_id)
+            csvfile =file(''+data +'middle_agency.csv','wb')
+            writer=csv.writer(csvfile)
+            file2=(['protocol_document','control_document','contract_document',institution_id])
+            writer.writerow(file2)
             csvfile.close()
             path="//tr[@id=" + institution_id + "]/td[text()='"+agency_name+"']"
             print( path)
