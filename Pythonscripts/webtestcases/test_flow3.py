@@ -28,26 +28,21 @@ print shot_path
 csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
-  a=line[0].decode('utf-8')
-  b=str(random.randint(100, 1000))
-  product_name=a+b
-  product_type=line[1].decode('utf-8')
-  #将product_type写入middle_product，test_flow5中填写协议模板时要用到
-  csvfile =open(''+data +'middle_product.csv','w')
-  csvfile.write(product_type+',')
-  csvfile.close()
+    a=line[0].decode('utf-8')
+    b=str(random.randint(100, 1000))
+    product_name=a+b
+    product_type=line[1].decode('utf-8')
+    #将product_type写入middle_product，test_flow5中填写协议模板时要用到
+    csvfile =open(''+data +'middle_product.csv','w')
+    csvfile.write(product_type+',')
+    csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
     def setUpClass(cls):
         cls.browser = webdriver.Firefox()
         cls.browser.maximize_window()
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.close()
-        cls.browser.quit()
-
-    def Create_product(self):
+    def test_Create_product(self):
         (u"新建产品")
         browser=self.browser
         try:
@@ -89,25 +84,25 @@ class Core_Enterprise(unittest.TestCase):
             # #检验是否新建成功
             try:
             # 数据库连接
-              conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
+                conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
             # 创建游标
-              cur = conn.cursor()
+                cur = conn.cursor()
             # product_name查询
-              sql='select product_pkey from t_product where product_name="'+ product_name + '"'
-              cur.execute(sql)
+                sql='select product_pkey from t_product where product_name="'+ product_name + '"'
+                cur.execute(sql)
             # 获取查询结果
-              result_set = cur.fetchall()
-              if result_set:
-                 for row in result_set:
+                result_set = cur.fetchall()
+                if result_set:
+                    for row in result_set:
                      product_id = row[0]
                      print product_id
-              else:
+                else:
                  print "No date"
             # 关闭游标和连接
-              cur.close()
-              conn.close()
+                cur.close()
+                conn.close()
             except mysql.connector.Error, e:
-              print e.message
+                print e.message
             product_id = str(product_id)
             #将product_id 写入middle_product.csv
             csvfile =open(''+data +'middle_product.csv','a')
@@ -115,9 +110,9 @@ class Core_Enterprise(unittest.TestCase):
             csvfile.close()
             path="//tr/td[text()="+ product_id +"]"
             if self.browser.find_element_by_xpath(path).is_displayed():
-               self.assertTrue(True)
+                self.assertTrue(True)
             else:
-               self.assertFalse(False)
+                self.assertFalse(False)
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -128,7 +123,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
-    def Enable_product(self):
+    def test_Enable_product(self):
       (u"启用产品")
       browser=self.browser
       try:
@@ -142,9 +137,9 @@ class Core_Enterprise(unittest.TestCase):
          time.sleep(2)
         #检验是否启用成功
          if browser.find_element_by_xpath("//tr/td[text()='"+ product_name +"']/following::td[3]").is_displayed():
-            print 'Start Success!'
+             print 'Start Success!'
          else:
-            print "Start Fail !"
+             print "Start Fail !"
       except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -155,4 +150,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
-
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
+        cls.browser.quit()

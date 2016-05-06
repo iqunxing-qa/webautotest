@@ -51,10 +51,7 @@ class Core_Enterprise(unittest.TestCase):
     def setUpClass(cls):
         cls.browser = webdriver.Firefox()
         cls.browser.maximize_window()
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.close()
-        cls.browser.quit()
+
     def Create_program(self):
         (u"新建方案")
         browser = self.browser
@@ -150,7 +147,7 @@ class Core_Enterprise(unittest.TestCase):
               print 'ok'
               self.assertTrue(True)
           else:
-             self.assertFalse(False)
+              self.assertFalse(False)
        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -161,4 +158,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
-
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
+        cls.browser.quit()
