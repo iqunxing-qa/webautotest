@@ -21,6 +21,7 @@ import traceback
 reload(sys)
 sys.setdefaultencoding('utf8')
 import csv
+import win32com.client
 import ConfigParser
 import mysql.connector
 #读取全局配置文件
@@ -32,6 +33,12 @@ data=cf.get('dir','data')
 #获取Firefox的profile
 propath=getprofile.get_profile()
 profile=webdriver.FirefoxProfile(propath)
+#读取数据库文件
+USER=cf.get('database','user')
+HOST=cf.get('database','host')
+PASSWORD=cf.get('database','password')
+PORT=cf.get('database','port')
+DATABASE=cf.get('database','dcf_loan')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 print shot_path
@@ -39,6 +46,24 @@ class core_contract(unittest.TestCase):
     (u"新建流水模块")
     @classmethod
     def setUpClass(cls):
+        xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+        xlBook = xlApp.Workbooks.Open(
+            r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将D:\\1.xls改为要处理的excel文件路径
+        xlSht = xlBook.Worksheets('sheet1')
+        lcoal_time = str(time.strftime("%Y/%m/%d", time.localtime()))
+        loan_document_no = "aaRYX" + str(random.randrange(1, 100000))
+        # 将随机生成的单据编号写入random_loan_no.csv中
+        csv_random_loan = file(data + 'random_loan_no.csv', 'wb')
+        writer = csv.writer(csv_random_loan)
+        writer.writerow([loan_document_no])
+        csv_random_loan.close()
+        xlSht.Cells(2, 5).Value = lcoal_time  # 修改单据起始时间
+        xlSht.Cells(2, 1).Value = loan_document_no  # 随机生成单据编号
+        cls.seller_name = xlSht.Cells(2, 2).Value
+        cls.loan_document_no=xlSht.Cells(2, 1).Value
+        cls.amount=xlSht.Cells(2, 4).Value
+        xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+        del xlApp
         cls.browser=webdriver.Firefox(profile)
         cls.browser.maximize_window()
     def test_1_contract_allocation(self):
@@ -95,85 +120,109 @@ class core_contract(unittest.TestCase):
             upload_file = method + "\\upload.exe " + data + "transaction_flow.xlsx"
             os.system( upload_file)
             time.sleep(2)
-            if browser.find_element_by_id("submit-now").is_displayed():
-                browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
-
-
-            ############
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        except NoSuchElementException,e:
+            browser.execute_script("arguments[0].click()",browser.find_element_by_id("submit-now"))
+            time.sleep(10)
+            browser.execute_script("arguments[0].click()",browser.find_element_by_xpath(".//*[@id='uploadArea']/div[3]/a"))#解析成功后点击取消
+            time.sleep(1)
+            browser.refresh()#上传流水完成后刷新网页
+        except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            message=message+e.msg
-            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
-            self.assertTrue(False, message)
-    # def test_2_contract_awaken(self):
-    #     (u"产看流水是否新建成功")
-    #     browser=self.browser
-    #     browser.implicitly_wait(10)
-    #     try:
-    #         print ""
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #     except NoSuchElementException,e:
-    #         fp = StringIO.StringIO()  # 创建内存文件对象
-    #         traceback.print_exc(file=fp)
-    #         message = fp.getvalue()
-    #         index = findStr.findStr(message, "File", 2)
-    #         message = message[0:index]
-    #         browser.get_screenshot_as_file("D：/" + browser.title + ".png")
-    #         self.assertTrue(False, message)
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("Message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
+            title_index=browser.title.find("-")
+            title=browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path +title + ".png")
+            self.assertTrue(False, print_message)
+    def test_2_contract_awaken(self):
+        (u"产看流水是否新建成功")
+        browser=self.browser
+        browser.implicitly_wait(10)
+        seller_name=self.seller_name #获取上传交易流水excel的卖家名称
+        loan_document_no=self.loan_document_no #获取交易流水的单据号
+        amount=self.amount #获取交易流水的金额
+
+        try:
+            ##############################################################
+            #                 根据生产的单据号查询id                     #
+            ##############################################################
+            try:
+                # 数据库连接
+                conn = mysql.connector.connect(host=HOST, user=USER, passwd=PASSWORD, db=DATABASE, port=PORT)
+                # 创建游标
+                cur = conn.cursor()
+                # customername_id查询
+                sql = 'select loan_document_id from t_loan_document where loan_document_no="' +loan_document_no+ '"'
+                print sql
+                cur.execute(sql)
+                # 获取查询结果
+                result_set = cur.fetchall()
+                if result_set:
+                    for row in result_set:
+                        loan_document_id = row[0]#从数据库取得id号
+
+                else:
+                    self.assertTrue(False, "the customer_id do not exsit in database!")
+                # 关闭游标和连接
+                cur.close()
+                conn.close()
+            except mysql.connector.Error, e:
+                print e.message
+            loan_document_id=str(loan_document_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        except Exception, e:
+            fp = StringIO.StringIO()  # 创建内存文件对象
+            traceback.print_exc(file=fp)
+            message = fp.getvalue()
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("Message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
+            self.assertTrue(False, print_message)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

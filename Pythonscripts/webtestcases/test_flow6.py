@@ -40,6 +40,8 @@ for line in reader:
 #读取合同配置银行卡卡号
 csvfile = file(data+'\core_bank_number.csv', 'rb')
 reader = csv.reader(csvfile)
+#读取截图存放路径
+shot_path=cf.get('shotpath','path')
 for line in reader:
     if reader.line_num==1:
         financing_bank_number = line[0]
@@ -205,14 +207,18 @@ class core_contract(unittest.TestCase):
             browser.execute_script("document.documentElement.scrollTop=document.body.scrollHeight")#滑动滚动条至底部使新建合同按钮可视
             time.sleep(1)
             browser.find_element_by_id("registration").click()
-        except NoSuchElementException,e:
+        except Exception,e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
-            index = findStr.findStr(message, "File", 2)
-            message = message[0:index]
-            browser.get_screenshot_as_file("D：/" + browser.title + ".png")
-            self.assertTrue(False, message)
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception=message.find("Message")
+            print_message=message[0:index_file]+message[index_Exception:]
+            time.sleep(1)
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
+            self.assertTrue(False, print_message)
     def test_2_contract_awaken(self):
         (u"核心合同启用")
         browser=self.browser
