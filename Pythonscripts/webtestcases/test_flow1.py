@@ -29,11 +29,11 @@ data=cf.get('dir','data')
 propath=getprofile.get_profile()
 profile=webdriver.FirefoxProfile(propath)
 #读取数据库文件
-USER=cf.get('dcf_user','user')
-HOST=cf.get('dcf_user','host')
-PASSWORD=cf.get('dcf_user','password')
-PORT=cf.get('dcf_user','port')
-DATABASE=cf.get('dcf_user','database')
+USER=cf.get('database','user')
+HOST=cf.get('database','host')
+PASSWORD=cf.get('database','password')
+PORT=cf.get('database','port')
+DATABASE=cf.get('database','dcf_user')
 #读取核心客户注册信息
 csvfile = file(data+'\core_enterprise_customer.csv', 'rb')
 reader = csv.reader(csvfile)
@@ -132,10 +132,12 @@ class Core_Enterprise(unittest.TestCase):
             traceback.print_exc(file=fp)
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
-            index_Exception = message.find("message")
+            index_Exception = message.find("Message")
             print_message = message[0:index_file] + message[index_Exception:]
             time.sleep(1)
-            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
             self.assertTrue(False, print_message)
     def test_2_core_register(self):
         (u"核心企业注册")
@@ -184,10 +186,12 @@ class Core_Enterprise(unittest.TestCase):
             traceback.print_exc(file=fp)
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
-            index_Exception = message.find("message")
+            index_Exception = message.find("Message")
             print_message = message[0:index_file] + message[index_Exception:]
             time.sleep(1)
-            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
             self.assertTrue(False, print_message)
     def test_3_core_authentication(self):
         (u"核心企业认证")
@@ -377,10 +381,12 @@ class Core_Enterprise(unittest.TestCase):
             traceback.print_exc(file=fp)
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
-            index_Exception = message.find("message")
+            index_Exception = message.find("Message")
             print_message = message[0:index_file] + message[index_Exception:]
             time.sleep(1)
-            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
             self.assertTrue(False, print_message)
     @classmethod
     def tearDownClass(cls):

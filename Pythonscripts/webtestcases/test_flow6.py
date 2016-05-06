@@ -215,7 +215,9 @@ class core_contract(unittest.TestCase):
             index_Exception=message.find("Message")
             print_message=message[0:index_file]+message[index_Exception:]
             time.sleep(1)
-            browser.get_screenshot_as_file(shot_path + browser.title + ".png")
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
             self.assertTrue(False, print_message)
     def test_2_contract_awaken(self):
         (u"核心合同启用")
