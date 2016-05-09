@@ -8,7 +8,7 @@ from classmethod import getprofile
 from classmethod import login
 from classmethod import findStr
 from selenium.webdriver.common.action_chains import ActionChains
-from PIL import ImageGrab
+import  datetime
 import  time
 import unittest
 import  random
@@ -52,16 +52,16 @@ class core_contract(unittest.TestCase):
         lcoal_time = str(time.strftime("%Y/%m/%d", time.localtime()))
         loan_document_no = "aaRYX" + str(random.randrange(1, 100000))
         # 将随机生成的单据编号写入random_loan_no.csv中
-        # csv_random_loan = file(data + 'random_loan_no.csv', 'wb')
-        # writer = csv.writer(csv_random_loan)
-        # writer.writerow([loan_document_no])
-        # csv_random_loan.close()
-        # xlSht.Cells(2, 5).Value = lcoal_time  # 修改单据起始时间
-        # xlSht.Cells(2, 1).Value = loan_document_no  # 随机生成单据编号
+        csv_random_loan = file(data + 'random_loan_no.csv', 'wb')
+        writer = csv.writer(csv_random_loan)
+        writer.writerow([loan_document_no])
+        csv_random_loan.close()
+        xlSht.Cells(2, 5).Value = lcoal_time  # 修改单据起始时间
+        xlSht.Cells(2, 1).Value = loan_document_no  # 随机生成单据编号
         cls.seller_name = xlSht.Cells(2, 2).Value
         cls.loan_document_no=xlSht.Cells(2, 1).Value
         cls.amount=xlSht.Cells(2, 4).Value
-        cls.start_time=xlSht.Cells(2, 5).Value
+        cls.start_time=lcoal_time
         print xlSht.Cells(2, 5).Value
         xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
         del xlApp
@@ -196,8 +196,6 @@ class core_contract(unittest.TestCase):
                 browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
                 self.assertFalse(True,"amount is inconsistent with EXCEL")
             if browser.find_element_by_xpath(start_time_xpath).text!=start_time:
-                print browser.find_element_by_xpath(start_time_xpath).text
-                print start_time
                 title_index = browser.title.find("-")
                 title = browser.title[0:title_index]
                 browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
