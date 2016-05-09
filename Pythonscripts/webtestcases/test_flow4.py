@@ -18,28 +18,35 @@ host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
 #读取数据库文件
-USER=cf.get('dcf_contract','user')
-HOST=cf.get('dcf_contract','host')
-PASSWORD=cf.get('dcf_contract','password')
-PORT=cf.get('dcf_contract','port')
-DATABASE=cf.get('dcf_contract','database')
+USER=cf.get('database','user')
+HOST=cf.get('database','host')
+PASSWORD=cf.get('database','password')
+PORT=cf.get('database','port')
+DATABASE=cf.get('database','dcf_contract')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 csvpaths=file(''+data+'agency_name.csv', 'rb') #读取 angency_name
 f = csv.reader(csvpaths)
 for line in f:
   a=line[0].decode('utf-8')
-  b=str(random.randint(100, 1000))
+  b=str(random.randint(100, 10000))
   agency_name=(a+b).decode('utf-8')
+# #在middle_agency.csv写入文档名
+# csvfile =file(''+data +'middle_agency.csv','wb')
+# writer=csv.writer(csvfile)
+# file=(['protocol_document','control_document','contract_document'])
+# writer.writerow(file)
+# csvfile.close()
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
     def setUpClass(cls):
         cls.browser = webdriver.Firefox()
         cls.browser.maximize_window()
-    def Create_institution(self):
+    def test_Create_institution(self):
         (u"新建机构工作方式")
         browser = self.browser
+        browser.implicitly_wait(10)
         try:
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)
@@ -80,7 +87,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(5)
             browser.find_element_by_xpath("//span[text()='+创建微合同']").click()
             browser.find_element_by_id('creatAgency').click()
-            time.sleep(2)
+            time.sleep(4)
             browser.find_element_by_link_text(u'返回列表').click()
             time.sleep(2)
             browser.find_element_by_id('search-button').click()
@@ -109,14 +116,15 @@ class Core_Enterprise(unittest.TestCase):
                  print e.message
             institution_id = str(institution_id)
             #将institution_id 追加写入middle_agency.csv
-            csvfile =open(''+data +'middle_agency.csv','a')
-            csvfile.write(institution_id)
+            csvfile =file(''+data +'middle_agency.csv','wb')
+            writer=csv.writer(csvfile)
+            file2=(['protocol_document','control_document','contract_document',institution_id])
+            writer.writerow(file2)
             csvfile.close()
             path="//tr[@id=" + institution_id + "]/td[text()='"+agency_name+"']"
             print( path)
             time.sleep(3)
             if browser.find_element_by_xpath(path).is_displayed():
-                print 'ok'
                 self.assertTrue(True)
             else:
                 self.assertFalse(False)
@@ -130,13 +138,11 @@ class Core_Enterprise(unittest.TestCase):
                 time.sleep(1)
                 browser.get_screenshot_as_file(shot_path + browser.title + ".png")
                 self.assertTrue(False, print_message)
-    def Enable_institution(self):
+    def test_Enable_institution(self):
         (u"启用机构工作方式")
         browser = self.browser
         try:
            time.sleep(2)
-           #browser.find_element_by_link_text(u"机构工作方式").click()
-           #time.sleep(2)
            path1="//tr/td[text()='"+agency_name+"']/following::td[2]/a[3]"
            time.sleep(1)
            browser.find_element_by_xpath(path1).click() #点击启用
@@ -144,7 +150,7 @@ class Core_Enterprise(unittest.TestCase):
            browser.find_element_by_id('modalBtn').click() # 确认启用
            time.sleep(1)
            #检验是否启用成功
-           path2="//tr/td[text()='"+agency_name+"']/following::td[1]/span[text()='已启用']"
+           path2="//tr/td[text()='"+agency_name+"']/following::td[1]]"
            if browser.find_element_by_xpath(path2).is_displayed():
                print 'ok'
                self.assertTrue(True)

@@ -17,11 +17,11 @@ host=cf.get('service','host')
 method=cf.get('dir','method')
 data=cf.get('dir','data')
 #读取数据库文件
-USER=cf.get('dcf_contract','user')
-HOST=cf.get('dcf_contract','host')
-PASSWORD=cf.get('dcf_contract','password')
-PORT=cf.get('dcf_contract','port')
-DATABASE=cf.get('dcf_contract','database')
+USER=cf.get('database','user')
+HOST=cf.get('database','host')
+PASSWORD=cf.get('database','password')
+PORT=cf.get('database','port')
+DATABASE=cf.get('database','dcf_contract')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 print shot_path
@@ -29,7 +29,7 @@ csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
     a=line[0].decode('utf-8')
-    b=str(random.randint(100, 1000))
+    b=str(random.randint(100, 10000))
     product_name=a+b
     product_type=line[1].decode('utf-8')
     #将product_type写入middle_product，test_flow5中填写协议模板时要用到
@@ -45,6 +45,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Create_product(self):
         (u"新建产品")
         browser=self.browser
+        browser.implicitly_wait(10)
         try:
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)
@@ -127,7 +128,6 @@ class Core_Enterprise(unittest.TestCase):
       (u"启用产品")
       browser=self.browser
       try:
-         # browser.find_element_by_link_text(u"产品配置").click()
          time.sleep(2)
          path="//tr/td[text()='"+product_name+"']/following::td[4]/a[3]"
          # 点击启用
