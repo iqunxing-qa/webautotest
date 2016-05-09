@@ -55,6 +55,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Create_program(self):
         (u"新建方案")
         browser = self.browser
+        browser.implicitly_wait(10)
         try:
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)

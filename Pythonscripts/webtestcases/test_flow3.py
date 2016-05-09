@@ -29,7 +29,7 @@ csvpaths=file(''+data+'product_name.csv', 'rb') #读取 产品名 以及模式
 f = csv.reader(csvpaths)
 for line in f:
     a=line[0].decode('utf-8')
-    b=str(random.randint(100, 1000))
+    b=str(random.randint(100, 10000))
     product_name=a+b
     product_type=line[1].decode('utf-8')
     #将product_type写入middle_product，test_flow5中填写协议模板时要用到
@@ -45,6 +45,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Create_product(self):
         (u"新建产品")
         browser=self.browser
+        browser.implicitly_wait(10)
         try:
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)

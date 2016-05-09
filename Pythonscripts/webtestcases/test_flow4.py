@@ -29,7 +29,7 @@ csvpaths=file(''+data+'agency_name.csv', 'rb') #读取 angency_name
 f = csv.reader(csvpaths)
 for line in f:
   a=line[0].decode('utf-8')
-  b=str(random.randint(100, 1000))
+  b=str(random.randint(100, 10000))
   agency_name=(a+b).decode('utf-8')
 # #在middle_agency.csv写入文档名
 # csvfile =file(''+data +'middle_agency.csv','wb')
@@ -46,6 +46,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Create_institution(self):
         (u"新建机构工作方式")
         browser = self.browser
+        browser.implicitly_wait(10)
         try:
             login.operate_login(self,'operation_login.csv') #登陆
             time.sleep(2)
@@ -124,7 +125,6 @@ class Core_Enterprise(unittest.TestCase):
             print( path)
             time.sleep(3)
             if browser.find_element_by_xpath(path).is_displayed():
-                print 'ok'
                 self.assertTrue(True)
             else:
                 self.assertFalse(False)
@@ -150,7 +150,7 @@ class Core_Enterprise(unittest.TestCase):
            browser.find_element_by_id('modalBtn').click() # 确认启用
            time.sleep(1)
            #检验是否启用成功
-           path2="//tr/td[text()='"+agency_name+"']/following::td[1]/span[text()='已启用']"
+           path2="//tr/td[text()='"+agency_name+"']/following::td[1]]"
            if browser.find_element_by_xpath(path2).is_displayed():
                print 'ok'
                self.assertTrue(True)
