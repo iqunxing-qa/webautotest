@@ -106,7 +106,6 @@ class Core_Enterprise(unittest.TestCase):
                if result_set:
                   for row in result_set:
                      institution_id = row[0]
-                     print institution_id
                else:
                   print "No date"
                # 关闭游标和连接
@@ -141,6 +140,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Enable_institution(self):
         (u"启用机构工作方式")
         browser = self.browser
+        browser.implicitly_wait(10)
         try:
            time.sleep(2)
            path1="//tr/td[text()='"+agency_name+"']/following::td[2]/a[3]"
@@ -150,9 +150,8 @@ class Core_Enterprise(unittest.TestCase):
            browser.find_element_by_id('modalBtn').click() # 确认启用
            time.sleep(1)
            #检验是否启用成功
-           path2="//tr/td[text()='"+agency_name+"']/following::td[1]]"
+           path2="//tr/td[text()='"+agency_name+"']/following::td[1]"
            if browser.find_element_by_xpath(path2).is_displayed():
-               print 'ok'
                self.assertTrue(True)
            else:
                self.assertFalse(False)

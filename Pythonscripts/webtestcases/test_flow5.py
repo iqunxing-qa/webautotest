@@ -113,7 +113,6 @@ class Core_Enterprise(unittest.TestCase):
                if result_set:
                   for row in result_set:
                       solution_name1 = row[0]
-                      print solution_name1
                else:
                   print "No date"
                # 关闭游标和连接
@@ -134,6 +133,7 @@ class Core_Enterprise(unittest.TestCase):
     def test_Enable_program(self):
        (u"启用方案")
        browser = self.browser
+       browser.implicitly_wait(10)
        try:
           time.sleep(3)
           path1="//tr/td[text()='"+solution_name+"']/following::td[5]/a[3]"
@@ -145,7 +145,6 @@ class Core_Enterprise(unittest.TestCase):
           #检验是否启用成功
           path2="//tr/td[text()='"+solution_name+"']/following::td[4]"
           if browser.find_element_by_xpath(path2).is_displayed():
-              print 'ok'
               self.assertTrue(True)
           else:
               self.assertFalse(False)

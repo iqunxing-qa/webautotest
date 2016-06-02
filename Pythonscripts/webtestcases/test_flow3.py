@@ -65,7 +65,7 @@ class Core_Enterprise(unittest.TestCase):
             self.browser.find_element_by_id('loanPrincipalCredit1').click()
             self.browser.find_element_by_id('button-next-2').click()
             if product_type=='N+1':
-                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='买家']").click()#放款对象
+                self. browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()#放款对象
             else:
                 self.browser.find_element_by_xpath("//input[@name='lendingTarget']/ancestor::label[1]/span[text()='卖家']").click()
             self.browser.find_element_by_name('loanApplicant').click()
@@ -96,7 +96,6 @@ class Core_Enterprise(unittest.TestCase):
                 if result_set:
                     for row in result_set:
                      product_id = row[0]
-                     print product_id
                 else:
                  print "No date"
             # 关闭游标和连接
@@ -127,12 +126,13 @@ class Core_Enterprise(unittest.TestCase):
     def test_Enable_product(self):
       (u"启用产品")
       browser=self.browser
+      browser.implicitly_wait(10)
       try:
          time.sleep(2)
          path="//tr/td[text()='"+product_name+"']/following::td[4]/a[3]"
          # 点击启用
          browser.find_element_by_xpath(path).click()
-         time.sleep(5)
+         time.sleep(2)
          browser.find_element_by_id('start').click()
          time.sleep(2)
         #检验是否启用成功
