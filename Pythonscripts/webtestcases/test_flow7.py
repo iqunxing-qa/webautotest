@@ -7,9 +7,8 @@ from selenium.common.exceptions import ElementNotVisibleException
 from classmethod import getprofile
 from classmethod import login
 from classmethod import findStr
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import Select
+import  datetime
 import  time
 import unittest
 import  random
@@ -41,7 +40,6 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_loan')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-print shot_path
 class core_contract(unittest.TestCase):
     (u"新建流水模块")
     @classmethod
@@ -62,11 +60,12 @@ class core_contract(unittest.TestCase):
         cls.seller_name = xlSht.Cells(2, 2).Value
         cls.loan_document_no=xlSht.Cells(2, 1).Value
         cls.amount=xlSht.Cells(2, 4).Value
+        cls.start_time=lcoal_time
         xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
         del xlApp
         cls.browser=webdriver.Firefox(profile)
         cls.browser.maximize_window()
-    def test_1_contract_allocation(self):
+    def test_1_upload_transaction(self):
         (u"上传流水")
         browser=self.browser
         browser.implicitly_wait(10)
@@ -110,7 +109,6 @@ class core_contract(unittest.TestCase):
                 browser.find_element_by_id("installCfca").click()#点击立即安装
                 browser.implicitly_wait(30)
                 ###########未写完
-
             except NoSuchElementException,e:
                 print "The customer has installed security controls "
              #######################################################################
@@ -135,15 +133,18 @@ class core_contract(unittest.TestCase):
             time.sleep(1)
             title_index=browser.title.find("-")
             title=browser.title[0:title_index]
+            # im = ImageGrab.grab()
+            # im.save(shot_path +title + ".png")
             browser.get_screenshot_as_file(shot_path +title + ".png")
             self.assertTrue(False, print_message)
-    def test_2_contract_awaken(self):
-        (u"产看流水是否新建成功")
+    def test_2_check_core_transaction(self):
+        (u"产看核心页面流水是否新建成功")
         browser=self.browser
         browser.implicitly_wait(10)
-        seller_name=self.seller_name #获取上传交易流水excel的卖家名称
-        loan_document_no=self.loan_document_no #获取交易流水的单据号
+        seller_name=self.seller_name.strip() #获取上传交易流水excel的卖家名称
+        loan_document_no=self.loan_document_no.strip() #获取交易流水的单据号
         amount=self.amount #获取交易流水的金额
+        start_time=self.start_time#获取交易流水起始日期
 
         try:
             ##############################################################
@@ -156,7 +157,6 @@ class core_contract(unittest.TestCase):
                 cur = conn.cursor()
                 # customername_id查询
                 sql = 'select loan_document_id from t_loan_document where loan_document_no="' +loan_document_no+ '"'
-                print sql
                 cur.execute(sql)
                 # 获取查询结果
                 result_set = cur.fetchall()
@@ -172,27 +172,38 @@ class core_contract(unittest.TestCase):
             except mysql.connector.Error, e:
                 print e.message
             loan_document_id=str(loan_document_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            #产生的单据号写入loan_document_id.csv
+            loan_document = file(data + 'loan_document_id.csv', 'wb')
+            writer = csv.writer(loan_document)
+            writer.writerow([loan_document_id])
+            loan_document.close()#结束写入
+            loan_document_no_xpath='//*[@id="'+loan_document_id+'"]/td[2]'
+            seller_name_xpath='//*[@id="'+loan_document_id+'"]/td[3]'
+            amount_xpath='//*[@id="'+loan_document_id+'"]/td[4]'
+            start_time_xpath = '//*[@id="' + loan_document_id + '"]/td[5]'
+            if browser.find_element_by_xpath(loan_document_no_xpath).text!=loan_document_no:
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"Transaction document No. is inconsistent with EXCEL")
+            time.sleep(1)
+            if browser.find_element_by_xpath(seller_name_xpath).text!=seller_name:
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"customer_name is inconsistent with EXCEL")
+            time.sleep(1)
+            if float(browser.find_element_by_xpath(amount_xpath).text)!=amount:
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"amount is inconsistent with EXCEL")
+            time.sleep(1)
+            if browser.find_element_by_xpath(start_time_xpath).text!=start_time:
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True, "the start_time of document is inconsistent with EXCEL")
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -206,61 +217,75 @@ class core_contract(unittest.TestCase):
             browser.get_screenshot_as_file(shot_path + title + ".png")
             self.assertTrue(False, print_message)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.browser.close()
-    #     cls.browser.quit()
+    def test_3_check_chain_transaction(self):
+        (u"查看链属企业融资单据")
+        browser = self.browser
+        browser.implicitly_wait(10)
+        loan_document_no=self.loan_document_no
+        amount=self.amount
+        start_time=self.start_time
+        financing_cost=0.88
+        try:
+            login.corp_login(self,"chain_enterprise_customer.csv")#链属企业登录
+            time.sleep(1)
+            #读取loan_document_id.csv中的单据编号
+            csvfile = file(data + 'loan_document_id.csv', 'rb')
+            reader = csv.reader(csvfile)
+            for line in reader:
+                loan_document_id=line[0].decode('utf-8')
+            # 读取产生的核心企业
+            csvfile = file(data + 'core_enterprise_login.csv', 'rb')
+            reader = csv.reader(csvfile)
+            for line in reader:
+                customer_name = line[0].decode('utf-8')
+            loan_document_no_xpath = '//*[@id="' + loan_document_id + '"]/td[2]'
+            customer_name_xpath='//*[@id="'+loan_document_id+'"]/td[3]'
+            amount_xpath='//*[@id="'+loan_document_id+'"]/td[4]'
+            start_time_xpath = '//*[@id="' + loan_document_id + '"]/td[5]'
+            financing_cost_xpath='//*[@id="' + loan_document_id + '"]/td[8]'
+            if browser.find_element_by_xpath(loan_document_no_xpath).text!=loan_document_no:#判断单据号是否相等
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"Transaction document No. is inconsistent with EXCEL")
+            time.sleep(1)
+            if browser.find_element_by_xpath(customer_name_xpath).text!=customer_name:#判断客户名称是否相同
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"customer_name is inconsistent with EXCEL")
+            time.sleep(1)
+            if float(browser.find_element_by_xpath(amount_xpath).text)!=amount:#判断融资金额是否相等
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True,"amount is inconsistent with EXCEL")
+            time.sleep(1)
+            if browser.find_element_by_xpath(start_time_xpath).text!=start_time:#判断单据开始时间是否相同
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")#对错误增加截图
+                self.assertFalse(True, "the start_time of document is inconsistent with EXCEL")
+            time.sleep(1)
+            if float(browser.find_element_by_xpath(financing_cost_xpath).text)!=financing_cost:  # 判断单据的融资成本是否计算正确
+                title_index = browser.title.find("-")
+                title = browser.title[0:title_index]
+                browser.get_screenshot_as_file(shot_path + title + ".png")  # 对错误增加截图
+                self.assertFalse(True, "the calculate of financing_cost is wrong!")
+        except Exception, e:
+            fp = StringIO.StringIO()  # 创建内存文件对象
+            traceback.print_exc(file=fp)
+            message = fp.getvalue()
+            index_file = findStr.findStr(message, "File", 2)
+            index_Exception = message.find("Message")
+            print_message = message[0:index_file] + message[index_Exception:]
+            time.sleep(1)
+            title_index = browser.title.find("-")
+            title = browser.title[0:title_index]
+            browser.get_screenshot_as_file(shot_path + title + ".png")
+            self.assertTrue(False, print_message)
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
+        cls.browser.quit()
 
