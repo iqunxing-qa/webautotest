@@ -8,10 +8,13 @@ import  StringIO
 import traceback
 from classmethod import findStr
 import os
-import csv
 import random
 import mysql.connector
 from classmethod import login
+import win32com.client
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 cf = ConfigParser.ConfigParser()
 cf.read(r"D:\Workspace\Pythonscripts\environment\env.conf")
 host=cf.get('service','host')
@@ -25,18 +28,16 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_contract')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-csvpaths=file(''+data+'agency_name.csv', 'rb') #读取 angency_name
-f = csv.reader(csvpaths)
-for line in f:
-  a=line[0].decode('utf-8')
-  b=str(random.randint(100, 10000))
-  agency_name=(a+b).decode('utf-8')
-# #在middle_agency.csv写入文档名
-# csvfile =file(''+data +'middle_agency.csv','wb')
-# writer=csv.writer(csvfile)
-# file=(['protocol_document','control_document','contract_document'])
-# writer.writerow(file)
-# csvfile.close()
+#读取 angency_name
+xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+xlSht = xlxBook.Worksheets('sheet2')
+agency_name = xlSht.Cells(2, 1).Value
+b=str(time.strftime("%m%d%H%M%S", time.localtime()))
+agency_name=(agency_name+b).decode('utf-8')
+agency_id=xlSht.Cells(2, 2).Value
+xlxBook.Close(SaveChanges=1)
+del xlxApp
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
@@ -104,29 +105,31 @@ class Core_Enterprise(unittest.TestCase):
                # 获取查询结果
                result_set = cur.fetchall()
                if result_set:
-                  for row in result_set:
-                     institution_id = row[0]
+                   for row in result_set:
+                       institution_id = row[0]
                else:
-                  print "No date"
+                   print "No date"
                # 关闭游标和连接
                cur.close()
                conn.close()
             except mysql.connector.Error, e:
                  print e.message
             institution_id = str(institution_id)
-            #将institution_id 追加写入middle_agency.csv
-            csvfile =file(''+data +'middle_agency.csv','wb')
-            writer=csv.writer(csvfile)
-            file2=(['protocol_document','control_document','contract_document',institution_id])
-            writer.writerow(file2)
-            csvfile.close()
+            #将institution_id 追加写入product_configuration.xlsx
+            xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+            xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+            xlSht = xlxBook.Worksheets('sheet2')
+            xlSht.Cells(2,2).Value=institution_id
+            time.sleep(2)
+            xlxBook.Close(SaveChanges=1)
+            del xlxApp
             path="//tr[@id=" + institution_id + "]/td[text()='"+agency_name+"']"
             print( path)
             time.sleep(3)
             if browser.find_element_by_xpath(path).is_displayed():
-                self.assertTrue(True)
+                self.assertTrue(True,"机构工作方式新建成功")
             else:
-                self.assertFalse(False)
+                self.assertFalse(True,"机构工作方式新建失败")
         except Exception, e:
                 fp = StringIO.StringIO()  # 创建内存文件对象
                 traceback.print_exc(file=fp)
@@ -142,19 +145,30 @@ class Core_Enterprise(unittest.TestCase):
         browser = self.browser
         browser.implicitly_wait(10)
         try:
-           time.sleep(2)
-           path1="//tr/td[text()='"+agency_name+"']/following::td[2]/a[3]"
-           time.sleep(1)
-           browser.find_element_by_xpath(path1).click() #点击启用
-           time.sleep(3)
-           browser.find_element_by_id('modalBtn').click() # 确认启用
-           time.sleep(1)
-           #检验是否启用成功
-           path2="//tr/td[text()='"+agency_name+"']/following::td[1]"
-           if browser.find_element_by_xpath(path2).is_displayed():
-               self.assertTrue(True)
-           else:
-               self.assertFalse(False)
+            time.sleep(2)
+            path1="//tr/td[text()='"+agency_name+"']/following::td[2]/a[3]"
+            time.sleep(1)
+            browser.find_element_by_xpath(path1).click() #点击启用
+            time.sleep(3)
+            browser.find_element_by_id('modalBtn').click() # 确认启用
+            time.sleep(3)
+            #检验是否启用成功
+            status=browser.find_element_by_xpath("//tr/td[text()='"+agency_name+"']/following::td[1]").text
+            print status
+            time.sleep(3)
+            if status==u"已启用":
+                self.assertTrue(True,'机构工作方式启用成功')
+            else:
+                self.assertFalse(True,'机构工作方式启用失败')
+            time.sleep(3)
+            #查看详情页面
+            browser.find_element_by_xpath(".//*[@id='"+agency_id+"']/td[4]/a[1]").click()#点击查看
+            time.sleep(3)
+            name1=browser.find_element_by_xpath('''.//*[@class="control-label"][text()='名称']/following::div[1]''').text
+            if name1==agency_name:
+                self.assertTrue(True,'新建机构工作方式后详情页面显示正常')
+            else:
+                self.assertFalse(True,'新建机构工作方式后详情页面显示异常')
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
