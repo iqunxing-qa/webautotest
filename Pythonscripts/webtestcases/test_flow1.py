@@ -8,11 +8,13 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 import  time
 import unittest
-import  random
-import HTMLTestRunner
+import  re
+from selenium.webdriver.common.keys import Keys
 import StringIO
 import traceback
 import sys
+import win32con
+import win32com.client
 import os
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -35,19 +37,15 @@ PASSWORD=cf.get('database','password')
 PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_user')
 #读取核心客户注册信息
-csvfile = file(data+'\core_enterprise_customer.csv', 'rb')
-reader = csv.reader(csvfile)
-for line in reader:
-    if reader.line_num==1:
-        enterprise_name = line[0].decode('utf-8')
-        customer_name = line[1].decode('utf-8')
-        customer_email=line[2].decode('utf-8')
-        customer_phone=line[3].decode('utf-8')
-#获取核心企业登录密码
-csvfile = file(data+'\core_enterprise_password.csv', 'rb')
-reader = csv.reader(csvfile)
-for line in reader:
-    enterprise_password = line[0]
+xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+xlBook = xlApp.Workbooks.Open( r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+xlSht = xlBook.Worksheets('Sheet1')
+customer_email=xlSht.Cells(2, 5).Value
+customer_name=xlSht.Cells(2, 3).Value
+pattern = re.compile(r'\d*')
+customer_phone=re.search(pattern, str(xlSht.Cells(2, 6).Value)).group()
+customer_password=xlSht.Cells(2, 4).Value
+del xlApp
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
 
@@ -56,7 +54,7 @@ class Core_Enterprise(unittest.TestCase):
     enterprise_ranname=""
     @classmethod
     def setUpClass(cls):
-        cls.browser = webdriver.Firefox()
+        cls.browser = webdriver.Firefox(profile)
         cls.browser.maximize_window()
 
     def test_1_invitation_register(self):
@@ -76,12 +74,14 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_id("inviteCustomer").click()
             time.sleep(1)
             # 客户信息填写
-            Core_Enterprise.enterprise_ranname=enterprise_name+str(random.randrange(1,100000))#随机生成客户信息
-            #将随机生成的客户名称写入core_random_customer中
-            csv_random_customer = file(data+'core_random_customer.csv', 'wb')
-            writer=csv.writer(csv_random_customer)
-            writer.writerow([Core_Enterprise.enterprise_ranname,customer_name,enterprise_password,customer_phone])
-            csv_random_customer.close()
+            Core_Enterprise.enterprise_ranname=u"测试核心企业"+str(time.strftime("%m%d%H%M%S", time.localtime()))#随机生成客户信息
+            #将随机生成的客户名称写入core_customer.xlsx中
+            xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+            xlSht = xlBook.Worksheets('Sheet1')
+            xlSht.Cells(2, 1).Value =Core_Enterprise.enterprise_ranname
+            xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlApp
             browser.find_element_by_id("customerFullName").send_keys(Core_Enterprise.enterprise_ranname)
             #browser.find_element_by_id("customerFullName").send_keys(enterprise_name)
             browser.find_element_by_xpath(".//*[@id='inviteForm']/div[2]/div/div/div[1]/button[2]").click()
@@ -133,7 +133,8 @@ class Core_Enterprise(unittest.TestCase):
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
             index_Exception = message.find("Message")
-            print_message = message[0:index_file] + message[index_Exception:]
+            index_Stacktrace=message.find("Stacktrace:")
+            print_message = message[0:index_file] + message[index_Exception:index_Stacktrace]
             time.sleep(1)
             title_index = browser.title.find("-")
             title = browser.title[0:title_index]
@@ -146,9 +147,9 @@ class Core_Enterprise(unittest.TestCase):
         time.sleep(4)
         try:
             # 填写注册信息
-            browser.find_element_by_id("inputPassword").send_keys(enterprise_password)
+            browser.find_element_by_id("inputPassword").send_keys(customer_password)
             time.sleep(1)
-            browser.find_element_by_id("inputRePassword").send_keys(enterprise_password)
+            browser.find_element_by_id("inputRePassword").send_keys(customer_password)
             time.sleep(1)
             browser.find_element_by_id("getDynamic").click()
             time.sleep(5)
@@ -171,9 +172,12 @@ class Core_Enterprise(unittest.TestCase):
             browser.find_element_by_id("registerbtn").click()
             # 等待5秒进入主页面后，关闭导航页面
             time.sleep(5)
-            browser.find_element_by_css_selector(".aknowledge").click()
-            time.sleep(5)
-            browser.find_element_by_xpath(".//*[@id='zhongjin-banner']/div[1]").click()
+            try:
+                browser.find_element_by_css_selector(".aknowledge").click()
+                time.sleep(5)
+                browser.find_element_by_xpath(".//*[@id='zhongjin-banner']/div[1]").click()
+            except NoSuchElementException,e:
+                print ""
             time.sleep(1)
             # 获取登录的用户名
             login_name = browser.find_element_by_css_selector("#logoutDiv>a").text
@@ -187,7 +191,8 @@ class Core_Enterprise(unittest.TestCase):
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
             index_Exception = message.find("Message")
-            print_message = message[0:index_file] + message[index_Exception:]
+            index_Stacktrace = message.find("Stacktrace:")
+            print_message = message[0:index_file] + message[index_Exception:index_Stacktrace]
             time.sleep(1)
             title_index = browser.title.find("-")
             title = browser.title[0:title_index]
@@ -228,161 +233,215 @@ class Core_Enterprise(unittest.TestCase):
             except mysql.connector.Error, e:
                 print e.message
             customername_id = str(customername_id)
-            path = "//*[@id='table-account']/tbody/tr[@data-customerid=" + '"' + customername_id + '"]/td[6]/div/a[2]'
-            browser.find_element_by_xpath(path).click()
+            browser.find_element_by_id("search-text").send_keys(Core_Enterprise.enterprise_ranname)#输入核心企业以便查找
             time.sleep(2)
+            browser.find_element_by_id("btn-search").click()
+            time.sleep(2)
+            browser.find_element_by_xpath(".//a[@class='nowrap'][contains(@href,'action')]").click()#点击认证
+            time.sleep(4)
+            browser.find_element_by_xpath(".//input[@name='commitMethod'][@value='1']").click()#选择普通版本
+            time.sleep(3)
             ###############################################################################################################
             #                                       以下区域为上传照片                                                    #
             ###############################################################################################################
-            # 通过滑动使上传营业执照按钮可视
-            businessLicenseFileupload = browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[4]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", businessLicenseFileupload)
+
+            web_elements=browser.find_elements_by_css_selector(".btn.btn-primary.fileinput-button")#找出所有上传文件的按钮
             time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[1]/div/div[1]/div[1]").click()
-            time.sleep(2)
-            # upload_file路径，上传图片
-            upload_file = method + "\\upload.exe "+data+"test_picture.jpg"
-            os.system(upload_file)
-            time.sleep(2)
-            # 通过滑动使上传组织机构代码按钮可视
-            organizationNoFileupload = browser.find_element_by_xpath(".//*[@id='orgPriImgContainer']/div[1]/div[1]")
-            browser.execute_script("arguments[0].scrollIntoView()", organizationNoFileupload)
-            time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='orgPriImgContainer']/div[1]/div[1]/div[1]").click()
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_css_selector(".upload-box.license-box")[1])#使营业执照区域可视
+            web_elements[1].click()#点击营业执照上传按钮
             time.sleep(2)
             # upload_file路径，上传图片
             upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
-            # 通过滑动使上传身份证正面按钮可视
-            operatorIdFrontFileupload = browser.find_element_by_xpath(
-                ".//*[@id='content-form']/div[4]/div[1]/div[1]/div[1]")
-            browser.execute_script("arguments[0].scrollIntoView()", operatorIdFrontFileupload)
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_css_selector(".upload-box.license-box")[2])  # 使组织机构代码区域可视
+            web_elements[2].click()  # 点击组织机构代码上传按钮
+            time.sleep(1)
+            # upload_file路径，上传图片
+            upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
+            os.system(upload_file)
             time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[1]/div[1]/div[1]/div[1]").click()
+            browser.execute_script("arguments[0].scrollIntoView()", browser.find_elements_by_css_selector(".upload-box.sub-box")[2])  # 使操作者身份证正面区域可视
+            web_elements[5].click()  # 点击操作者正面上传按钮
             time.sleep(2)
             # upload_file路径，上传图片
             upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
-            # 通过滑动使上传身份证反面按钮可见
-            operatorIdBackFileupload = browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[1]/div[2]/div[1]")
-            browser.execute_script("arguments[0].scrollIntoView()", operatorIdBackFileupload)
-            time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[1]/div[2]/div[1]/div[1]").click()
+            browser.execute_script("arguments[0].scrollIntoView()", browser.find_elements_by_css_selector(".upload-box.sub-box")[3])  # 使操作者身份证反面区域可视
+            web_elements[6].click()  # 点击操作者反面上传按钮
             time.sleep(2)
             # upload_file路径，上传图片
             upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
             time.sleep(2)
-            # 通过滑动使操作者手持身份证照片按钮可见
-            picHandlingFileupload = browser.find_element_by_xpath(".//*[@id='content-form']/div[5]/div[1]/div/div[1]")
-            browser.execute_script("arguments[0].scrollIntoView()", picHandlingFileupload)
-            time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[5]/div[1]/div/div[1]/div[1]").click()
+            browser.execute_script("arguments[0].scrollIntoView()", browser.find_elements_by_css_selector(".upload-box.license-box")[3])  # 使操作者手持身份证照片
+            web_elements[7].click()  # 点击操作者手持身份证照片上传按钮
             time.sleep(2)
             # upload_file路径，上传图片
             upload_file = method + "\\upload.exe " + data + "test_picture.jpg"
             os.system(upload_file)
-            #上传完所有图片后，通过控制人员信息栏让营业执照的通过按钮可见
-            member=browser.find_element_by_xpath("html/body/div[1]/div[2]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", member)
-            time.sleep(3)
             ####################################################################################################
             #                               以下区域填写营业执照相关信息                                       #
             ####################################################################################################
-            # 点击业执照区域的通过按钮，弹出编辑区域
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[1]/div[2]/div/label[1]/input").click()
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_css_selector(".crumbs-default")[1])#使审核认证资料信息可视，从而使营业执照右侧通过按钮可视
+            time.sleep(2)
+            browser.find_element_by_css_selector(".radio.col-xs-6>input[value='2'][name='businessLicense_Pass']").click()#点击营业执照的通过按钮
+            time.sleep(2)
+            browser.find_element_by_css_selector(".form-control[name='enterprise_no']").send_keys("111111")#填写营业执照号
+            time.sleep(2)
+            browser.find_element_by_xpath('.//input[@name="businessLicenseNeverExpireFlag"][@value="1"]').click()#营业执照无期限
+            time.sleep(2)
+            browser.find_element_by_xpath(".//input[@name='enterprise_money']").send_keys("10000")#填写注册资本
+            time.sleep(2)
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_xpath('.//div[@class="f12"]')[1])
             time.sleep(1)
-            # 使营业执照区域可视
-            businessLicenseFileupload = browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", businessLicenseFileupload)
-            time.sleep(4)
-            # 编辑营业执照
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[2]/div/input").send_keys("1111112")#填写营业执照注册号
+            browser.find_element_by_xpath(".//input[@name='organizationNo_Pass'][@value='2']").click()#点击组织机构代码通过
+            time.sleep(2)
+            browser.find_element_by_xpath(".//input[@class='form-control'][@name='organization_no']").send_keys("111111")#填写组织机构代码
+            time.sleep(2)
+            browser.find_element_by_xpath(".//input[@class='form-control'][@name='organization_no_regist']").send_keys("111111")#填写登记号
+            time.sleep(2)
+            Select(browser.find_element_by_id("province")).select_by_visible_text(u"上海")#选择上海市
+            time.sleep(2)
+            Select(browser.find_element_by_id("city")).select_by_visible_text(u"上海市")  # 选择上海市
+            time.sleep(2)
+            browser.execute_script('''arguments[0].value="2020-2-21"''', browser.find_element_by_xpath(".//input[@class='form-control datepicker']"))
             time.sleep(1)
-            browser.find_element_by_css_selector('''.radio.col-xs-6>label>input[value="0"]''').click()
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_xpath('.//div[@class="f12"]')[2])#上移组织机构代码，使操作者身份证区域可见
             time.sleep(1)
-            start_date=browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[3]/div/div[2]/input[1]")
-            browser.execute_script('''arguments[0].value="2012-2-21"''',start_date)
-            time.sleep(3)
-            end_date=browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[3]/div/div[2]/input[2]")
-            browser.execute_script('''arguments[0].value="2020-2-21"''',end_date)
-            time.sleep(3)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[2]/div[4]/div/div/div[2]/input").send_keys("10000")
+            browser.find_element_by_xpath(".//input[@name='operatorId_Pass'][@value='2']").click()#点击操作者身份证通过
             time.sleep(2)
-
-
-            # 上移营业执照区域使组织机构代码通过按钮可见
-            businessLicense_move = browser.find_element_by_xpath(".//*[@id='content-form']/div[2]/div[2]/div[4]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", businessLicense_move)
+            browser.find_element_by_xpath(".//input[@name='operator_user_name']").send_keys(u"周大强")#输入身份证名称
             time.sleep(2)
-            # 点击组织机构区域的通过按钮，弹出编辑区域
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]/div[1]/div[2]/div/label[1]/input").click()
-            time.sleep(1)
-            # 使组织机构区域可视
-            organizationNoFileupload = browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", organizationNoFileupload)
-            time.sleep(4)
-            # 编辑组织机构
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]/div[2]/div[1]/div[2]/div/input").send_keys("111111")
-            time.sleep(1)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]/div[2]/div[1]/div[3]/div/input").send_keys("121212")
-            time.sleep(1)
-            Select(browser.find_element_by_id("province")).select_by_value("310000")#选择上海市
-            time.sleep(1)
-            Select(browser.find_element_by_id("city")).select_by_value("310100")
+            browser.find_element_by_xpath(".//input[@name='operator_ID']").send_keys("222222222222222222")#输入身份证号码
             time.sleep(2)
-            validity_date=browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]/div[2]/div[1]/div[6]/div/input")
-            browser.execute_script('''arguments[0].value="2020-2-21"''',validity_date)
-
-
-            # 上移组织机构区域使操作者身份证区域的通过按钮可见
-            organization_move = browser.find_element_by_xpath(".//*[@id='content-form']/div[3]/div[2]/div[4]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", organization_move)
+            browser.find_element_by_xpath(".//input[@name='operator_ID_never_expire']").click()#长期
             time.sleep(2)
-            # 点击操作身份证区域的通过按钮，弹出编辑区域
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[1]/div[2]/div/label[1]/input").click()
-            time.sleep(1)
-            # 编辑操作身份证区域
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[2]/div[1]/div/input").send_keys(u"周大强")
+            browser.execute_script("arguments[0].scrollIntoView()",browser.find_elements_by_xpath('.//div[@class="f12"]')[3])  # 上移身份证操作者区域，使操作者手持身份证照片
             time.sleep(2)
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[2]/div[2]/div/input").send_keys("340823198876611221")
+            browser.find_element_by_xpath(".//input[@name='picHandling_Pass'][@value='2']").click()#点击操作者手持身份证照片通过按钮
             time.sleep(2)
-            idcard_startdate=browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[2]/div[3]/div/input[1]")
-            browser.execute_script('''arguments[0].value="2016-4-1"''', idcard_startdate)
+            browser.execute_script("document.documentElement.scrollTop=0")  # 滑动滚动条至顶部
             time.sleep(2)
-            idcard_enddate=browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[2]/div[3]/div/input[2]")
-            browser.execute_script('''arguments[0].value="2020-4-1"''', idcard_enddate)
+            browser.find_element_by_xpath(".//input[@name='commitMethod'][@value='1']").click()  # 再次选择普通版本
             time.sleep(2)
-
-            # 上移身份证操作区域使操作者手持身份证区域的通过按钮可视
-            operator_move = browser.find_element_by_xpath(".//*[@id='content-form']/div[4]/div[2]/div[4]/div[2]")
-            browser.execute_script("arguments[0].scrollIntoView()", operator_move)
+            browser.find_element_by_id("btnSubmit").click()  # 点击提交
             time.sleep(2)
-            # 点击手持身份证区域的通过按钮
-            browser.find_element_by_xpath(".//*[@id='content-form']/div[5]/div[2]/div[1]/div[2]/div/label[1]/input").click()
+            browser.find_element_by_css_selector("#modalFooter>a").click()#点击返回列表
+            #################################
+            #验证认证状态
+            #################################
+            browser.find_element_by_id("search-text").send_keys(Core_Enterprise.enterprise_ranname)  # 输入核心企业以便查找
             time.sleep(2)
-             #填写完所有资料保存
-            browser.find_element_by_id("btnSubmit").click()
-            time.sleep(3)
-            browser.find_element_by_link_text(u"返回列表").click()
+            browser.find_element_by_id("btn-search").click()
             time.sleep(2)
-            #查看是否被认证
-            ver_xpath='''.//*[@id='table-account']/tbody/tr[@data-customerid="'''+customername_id+'''"]/td[4]/span'''
-            ver_text=browser.find_element_by_xpath(ver_xpath).text
-            if ver_text==u"已认证":
-                self.assertTrue(True,"客户认证成功")
-            else:
-                self.assertTrue(False,"客户资料已填写，但是提交后客户认证失败")
+            if not browser.find_element_by_xpath(".//span[@class='status certified']").text==u"已认证":
+                self.assertTrue(False,"已认证成功但是状态没有改变")
+            ############################################################
+            #查找新建用户通用结算户，把customer_id和通用结算户传入excel#
+            ############################################################
+            browser.find_element_by_link_text(u"群星支付").click()
+            time.sleep(2)
+            ##########################
+            # 等待一直loading的按钮消失
+            ###########################
+            wait_time = 0
+            General_account = True
+            while True:
+                browser.find_element_by_id("search-text").clear()
+                browser.find_element_by_id("search-text").send_keys(Core_Enterprise.enterprise_ranname)
+                browser.find_element_by_id("btn-search").click()  # 在群星支付界面搜索核心企业账户
+                time.sleep(5)
+                try:
+                    if browser.find_element_by_xpath("//div[@class='loading']").is_displayed():
+                        browser.refresh()
+                        time.sleep(5)
+                    ###########################
+                    # 查找通用结算户
+                    ###########################
+                    try:
+                        elements = browser.find_elements_by_xpath(".//*[@id='table-account']/tbody/tr")
+                        if browser.find_element_by_xpath( ".//*[@id='table-account']/tbody/tr[2]/td[4]/div[2]").is_displayed():
+                            core_General_account = str(browser.find_element_by_xpath(".//*[@id='table-account']/tbody/tr[2]/td[4]/div[2]").text)  # 获取通用结算户
+                            if len(elements) > 3:
+                                self.assertFalse(False, u"该账户存在多余3个账户")
+                            break
+                    except NoSuchElementException, e:
+                        print ""
+                except NoSuchElementException, e:
+                    ###########################
+                    # 查找通用结算户
+                    ###########################
+                    elements = browser.find_elements_by_xpath(".//*[@id='table-account']/tbody/tr")
+                    try:
+                        if browser.find_element_by_xpath(".//*[@id='table-account']/tbody/tr[2]/td[4]/div[2]").is_displayed():
+                            core_General_account = str(browser.find_element_by_xpath(".//*[@id='table-account']/tbody/tr[2]/td[4]/div[2]").text)  # 获取通用结算户
+                            if len(elements) > 3:
+                                self.assertFalse(False, u"该账户存在多余3个账户")
+                            break
+                    except NoSuchElementException, e:
+                        print ""
+                wait_time = wait_time + 1
+                if wait_time == 50:
+                    General_account = False
+                    break
+            if not General_account:
+                self.assertFalse(True, "该账户已认证成功，但是没有创建通用结算户")
+            core_account_id=str(browser.find_element_by_css_selector(".odd.grouped>td[data-name='accountId']").text)#获取群星id号
+            xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
+            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+            xlSht = xlBook.Worksheets('Sheet1')
+            xlSht.Cells(2, 2).Value =core_General_account
+            # xlSht.Cells(2,7).Value=customername_id
+            xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlApp
+            #############################################
+            #记账方式充值                               #
+            #############################################
+            browser.find_element_by_link_text(u"群星支付").click()
+            time.sleep(2)
+            browser.find_element_by_css_selector(".nav-list.account-list>div").click()#点击账务管理
+            time.sleep(2)
+            browser.find_elements_by_css_selector(".nav-list.account-list>ul>li>a")[1].click()#点击手工记账
             time.sleep(5)
+            wait_time=0
+            while True:
+                try:
+                    browser.find_elements_by_css_selector(".select2-selection__arrow")[0].click()
+                    #browser.find_element_by_xpath("html/body/div[1]/div[3]/div[2]/form/div[1]/div/span/span[1]/span/span[2]").click()
+                    time.sleep(2)
+                    browser.find_element_by_css_selector(".select2-search__field").send_keys(u"一般户充值")#选择一般户充值
+                    time.sleep(2)
+                    browser.find_element_by_css_selector(".select2-search__field").send_keys(Keys.ENTER)  # 按enter键输入
+                    time.sleep(2)
+                    browser.find_elements_by_css_selector(".select2-selection__arrow")[3].click()#点击收款方
+                    time.sleep(2)
+                    browser.find_element_by_css_selector(".select2-search__field").send_keys(Core_Enterprise.enterprise_ranname)  # 输入收款方
+                    time.sleep(2)
+                    browser.find_element_by_css_selector(".select2-search__field").send_keys(Keys.ENTER)  # 按enter键输入
+                    time.sleep(2)
+                    Select(browser.find_element_by_css_selector(".form-control[data-type='receiveAccount'][name='selectReceiveAccount']")).select_by_value(core_account_id)#选择通用结算户
+                    time.sleep(2)
+                    browser.find_element_by_css_selector(".form-control.num").send_keys(10000000)#充值完成
+                    time.sleep(2)
+                    browser.find_element_by_id("btn-save").click()#保存按钮
+                    time.sleep(2)
+                    break
+                except NoSuchElementException,e:
+                    browser.refresh()
+                    time.sleep(5)
+                wait_time=wait_time+1
+                if wait_time==20:
+                    break
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
             index_file = findStr.findStr(message, "File", 2)
             index_Exception = message.find("Message")
-            print_message = message[0:index_file] + message[index_Exception:]
+            index_Stacktrace = message.find("Stacktrace:")
+            print_message = message[0:index_file] + message[index_Exception:index_Stacktrace]
             time.sleep(1)
             title_index = browser.title.find("-")
             title = browser.title[0:title_index]
