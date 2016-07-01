@@ -41,12 +41,6 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_user')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-#读取运营账户密码
-csvfile = file(data+r'\operation_login.csv', 'rb')
-reader = csv.reader(csvfile)
-for line in reader:
-    username=line[0].decode('utf-8')
-    password=line[1].decode('utf-8')
 #读取机构注册信息
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
 xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
