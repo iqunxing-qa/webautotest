@@ -396,9 +396,9 @@ class Core_Enterprise(unittest.TestCase):
                     browser.find_element_by_xpath('''.//*[@class="close"]''').click()
                     time.sleep(2)
 
-            Query_pay_voucher(list_zhifu,sum_money,u'支付',core_enterprise_name,u'广州市三晋光大货运服务有限公司')
-            Query_pay_voucher(list_benjin,list_financing_money,u'本金',u'广州市三晋光大货运服务有限公司',jigou_name)
-            Query_pay_voucher(list_weikuan,list_retainage_money,u'尾款',u'广州市三晋光大货运服务有限公司',chain_enterprise_name)
+            Query_pay_voucher(list_zhifu,sum_money,u'支付',core_enterprise_name,jigou_name)
+            Query_pay_voucher(list_benjin,list_financing_money,u'本金',jigou_name,jigou_name)
+            Query_pay_voucher(list_weikuan,list_retainage_money,u'尾款',jigou_name,chain_enterprise_name)
 
             ###########################################################################################################
             #                             账户明细 查看                                                               #
@@ -467,10 +467,10 @@ class Core_Enterprise(unittest.TestCase):
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
 
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.browser.close()
-    #     cls.browser.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.close()
+        cls.browser.quit()
 
 
 
