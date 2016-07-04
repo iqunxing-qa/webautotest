@@ -24,7 +24,6 @@ def creatsuite():
     dic=sorted(dict.iteritems(),key=lambda d:d[0])
     for k in dic:
         for test_case in k[1]:
-            print test_case
             testunit.addTest(test_case)
         # for test_case in test_suite:
         #     testunit.addTests(test_case)

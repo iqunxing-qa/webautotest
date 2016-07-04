@@ -32,7 +32,6 @@ data=cf.get('dir','data')
 #获取Firefox的profile
 propath=getprofile.get_profile()
 profile=webdriver.FirefoxProfile(propath)
-print propath
 #读取数据库文件
 USER=cf.get('database','user')
 HOST=cf.get('database','host')

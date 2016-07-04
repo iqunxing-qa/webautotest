@@ -1,5 +1,6 @@
 #coding=utf-8
 from unittest.test import test_suite
+from unittest.test import test_suite
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from classmethod import *

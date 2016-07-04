@@ -43,7 +43,6 @@ for i in range(2,5):    #获取需要还款的单据编号和金额
     receipt_money=receipt_money+'0'
     list_receipt_id.append(receipt_id)
     list_receipt_money.append(receipt_money)
-print list_receipt_id,list_receipt_money
 #读取融资金额和loan_document_id
 xlSht2 = xlxBook.Worksheets('Sheet2')
 for i in range(2,5):    #获取需要还款的单据对应的融资金额
@@ -52,7 +51,6 @@ for i in range(2,5):    #获取需要还款的单据对应的融资金额
     list_financing_money.append(financing_money)
     loan_document_id=str(xlSht2.Cells(i, 1).Value)
     list_loan_document_id.append(loan_document_id)
-print list_financing_money,list_loan_document_id
 xlxBook.Close(SaveChanges=1)
 del xlxApp
 #计算尾款

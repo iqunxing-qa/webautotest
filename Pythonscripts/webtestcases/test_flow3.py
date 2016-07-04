@@ -28,7 +28,6 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_contract')
 #读取截图存放路径
 shot_path=cf.get('shotpath','path')
-print shot_path
 #读取 产品名 ,模式
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
 xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
