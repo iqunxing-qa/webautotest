@@ -30,7 +30,7 @@ DATABASE=cf.get('database','dcf_contract')
 shot_path=cf.get('shotpath','path')
 #读取 angency_name
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
 xlSht = xlxBook.Worksheets('sheet2')
 agency_name = xlSht.Cells(2, 1).Value
 b=str(time.strftime("%m%d%H%M%S", time.localtime()))
@@ -117,7 +117,7 @@ class Core_Enterprise(unittest.TestCase):
             institution_id = str(institution_id)
             #将institution_id 追加写入product_configuration.xlsx
             xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+            xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
             xlSht = xlxBook.Worksheets('sheet2')
             xlSht.Cells(2,2).Value=institution_id
             time.sleep(2)

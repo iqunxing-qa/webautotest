@@ -28,9 +28,9 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_contract')
 
 #读取单据编号receipt_id,单据金额receipt_money
-#os.system('D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
+#os.system('D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 list_receipt_id=[]#存放单据编号
 list_receipt_money=[]#存放单据金额
@@ -61,7 +61,7 @@ for a in range(len(list_receipt_money)):
             list_retainage_money.append( retainage_money)
 #读取机构名和银行账号
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 jigou_name= xlSht.Cells(2, 1).Value
 jigou_bank_no=xlSht.Cells(2, 2).Value
@@ -69,7 +69,7 @@ xlxBook.Close(SaveChanges=1)
 del xlxApp
 #读取买方企业名称
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
 xlSht = xlxBook.Worksheets('Sheet1')
 core_enterprise_name = xlSht.Cells(2, 1).Value
 core_bank_no=xlSht.Cells(2,2).Value
@@ -77,7 +77,7 @@ xlxBook.Close(SaveChanges=1)
 del xlxApp
 #读取链属企业名称和银行账号
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
 xlSht = xlxBook.Worksheets('Sheet1')
 chain_enterprise_name = xlSht.Cells(2, 1).Value
 chain_bank_no=xlSht.Cells(2,2).Value

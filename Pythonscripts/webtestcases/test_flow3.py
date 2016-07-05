@@ -30,7 +30,7 @@ DATABASE=cf.get('database','dcf_contract')
 shot_path=cf.get('shotpath','path')
 #读取 产品名 ,模式
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 name = str(xlSht.Cells(2, 1).Value)
 b=str(time.strftime("%m%d%H%M%S", time.localtime()))
@@ -110,7 +110,7 @@ class Core_Enterprise(unittest.TestCase):
             product_id = str(product_id)
             #将product_id 写入product_configuration.xlsx
             xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+            xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
             xlSht = xlxBook.Worksheets('sheet1')
             xlSht.Cells(2,3).Value=product_id
             xlxBook.Close(SaveChanges=1)

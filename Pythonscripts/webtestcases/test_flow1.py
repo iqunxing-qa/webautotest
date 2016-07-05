@@ -39,7 +39,7 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_user')
 #读取核心客户注册信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open( r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+xlBook = xlApp.Workbooks.Open( r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 customer_email=xlSht.Cells(2, 5).Value
 customer_name=xlSht.Cells(2, 3).Value
@@ -78,7 +78,7 @@ class Core_Enterprise(unittest.TestCase):
             Core_Enterprise.enterprise_ranname=u"测试核心企业"+str(time.strftime("%m%d%H%M%S", time.localtime()))#随机生成客户信息
             #将随机生成的客户名称写入core_customer.xlsx中
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
             xlSht = xlBook.Worksheets('Sheet1')
             xlSht.Cells(2, 1).Value =Core_Enterprise.enterprise_ranname
             xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
@@ -391,7 +391,7 @@ class Core_Enterprise(unittest.TestCase):
                 self.assertFalse(True, "该账户已认证成功，但是没有创建通用结算户")
             core_account_id=str(browser.find_element_by_css_selector(".odd.grouped>td[data-name='accountId']").text)#获取群星id号
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
             xlSht = xlBook.Worksheets('Sheet1')
             xlSht.Cells(2, 2).Value =core_General_account
             # xlSht.Cells(2,7).Value=customername_id
@@ -450,7 +450,7 @@ class Core_Enterprise(unittest.TestCase):
             self.assertTrue(False, print_message)
     @classmethod
     def tearDownClass(cls):
-        # comand = "mysql -h t6.db.dcfservice.com -uroot -pdcf2014<\"D:\workspace\Pythonscripts\classmethod\delete.sql\""
+        # comand = "mysql -h t6.db.dcfservice.com -uroot -pdcf2014<\"D:\Workspace\Pythonscripts\classmethod\delete.sql\""
         # os.system(comand)
         cls.browser.close()
         cls.browser.quit()

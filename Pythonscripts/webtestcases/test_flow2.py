@@ -42,7 +42,7 @@ DATABASE=cf.get('database','dcf_user')
 shot_path=cf.get('shotpath','path')
 #读取机构注册信息
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 depart_name = xlSht.Cells(2, 3).Value
 depart_mail= xlSht.Cells(2, 5).Value
@@ -75,7 +75,7 @@ class department_register(unittest.TestCase):
             department_register.jigou_name=((u'机构测试')+a)#随机生成机构名
             #将机构名写入institution_data.xlsx
             xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+            xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
             xlSht = xlxBook.Worksheets('sheet1')
             xlSht.Cells(2,1).Value=department_register.jigou_name
             xlxBook.Close(SaveChanges=1)
@@ -241,7 +241,7 @@ class department_register(unittest.TestCase):
         customername_id = str(customername_id)
         #将customername_id写入institution_data
         xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+        xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
         xlSht = xlxBook.Worksheets('sheet1')
         xlSht.Cells(2,7).Value=customername_id
         xlxBook.Close(SaveChanges=1)
@@ -349,7 +349,7 @@ class department_register(unittest.TestCase):
             bank_no=browser.find_element_by_xpath('''.//span[@class="account-info-num"]''').text
             #将银行账号写入institution_data.xlsx
             xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+            xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
             xlSht = xlxBook.Worksheets('sheet1')
             xlSht.Cells(2,2).Value=bank_no
             xlxBook.Close(SaveChanges=1)

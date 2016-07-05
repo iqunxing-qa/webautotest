@@ -38,27 +38,27 @@ propath=getprofile.get_profile()
 profile=webdriver.FirefoxProfile(propath)
 #读取核心客户注册信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open( r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+xlBook = xlApp.Workbooks.Open( r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 enterprise_name=xlSht.Cells(2, 1).Value
 xlBook.Close(SaveChanges=1)
 del xlApp
 #读取方案名称
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open( r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+xlBook = xlApp.Workbooks.Open( r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
 xlSht = xlBook.Worksheets('Sheet3')
 Schema_name=xlSht.Cells(2, 1).Value
 xlBook.Close(SaveChanges=1)
 del xlApp
 #读取机构信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open( r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlBook = xlApp.Workbooks.Open( r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 institution_name=xlSht.Cells(2, 1).Value
 institution_bank_no=str(xlSht.Cells(2, 2).Value).replace(" ","")
 #读取合同配置信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 pattern = re.compile(r'\d*')
 core_in_supplychain = xlSht.Cells(3, 1).Value  # 供应链买卖方
@@ -151,7 +151,7 @@ class core_contract(unittest.TestCase):
             #配置帐期内标准收费规则     #
             #############################
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
             xlSht = xlBook.Worksheets('Sheet2')#读取收费规则表单
             for i in range(3,xlSht.UsedRange.Rows.Count+1):
                 term_interval = xlSht.Cells(i, 1).Value#期限区间
@@ -362,7 +362,7 @@ class core_contract(unittest.TestCase):
             postpone_or_not="Y"#是否顺延
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
             xlBook = xlApp.Workbooks.Open(
-                "D:\\workspace\\Pythonscripts\\testdatas\\"+u"hetong.xlsx")  # 将D:\\1.xls改为要处理的excel文件路径
+                "D:\\Workspace\\Pythonscripts\\testdatas\\"+u"hetong.xlsx")  # 将D:\\1.xls改为要处理的excel文件路径
             xlSht = xlBook.Worksheets(u'额度账期参数')
             xlSht.Cells(2, 1).Value =enterprise_name  # 修改合同核心企业名称
             xlSht.Cells(2, 2).Value =chain_customer  # 修改关联方客户名称
@@ -386,7 +386,7 @@ class core_contract(unittest.TestCase):
 
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
             xlBook = xlApp.Workbooks.Open(
-                r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')  # 将随机生成的名称写入链属企业
+                r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')  # 将随机生成的名称写入链属企业
             xlSht = xlBook.Worksheets('Sheet1')
             xlSht.Cells(2, 1).Value =chain_customer  # 修改合同核心企业名称
             xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
@@ -411,7 +411,7 @@ class core_contract(unittest.TestCase):
         browser.implicitly_wait(10)
         try:
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
             xlSht = xlBook.Worksheets('Sheet1')
             chain_customer = xlSht.Cells(2, 1).Value
             chain_name = xlSht.Cells(2, 3).Value
@@ -582,7 +582,7 @@ class core_contract(unittest.TestCase):
             browser.find_element_by_link_text(u"客户认证")
             time.sleep(2)
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
             xlSht = xlBook.Worksheets('Sheet1')
             chain_customer = xlSht.Cells(2, 1).Value
             xlBook.Close(SaveChanges=1)
@@ -725,7 +725,7 @@ class core_contract(unittest.TestCase):
             chain_account_id = str(browser.find_element_by_css_selector(".odd.grouped>td[data-name='accountId']").text)  # 获取群星id号
             time.sleep(2)
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
             xlSht = xlBook.Worksheets('Sheet1')
             xlSht.Cells(2, 2).Value = chain_General_account
             xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
@@ -802,7 +802,7 @@ class core_contract(unittest.TestCase):
             ###########################################
             try:
                 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-                xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+                xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
                 xlSht = xlBook.Worksheets('Sheet1')
                 pattern = re.compile(r'\d*')
                 chain_cellphone= re.search(pattern, str(xlSht.Cells(2, 6).Value)).group()

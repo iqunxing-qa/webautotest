@@ -31,7 +31,7 @@ shot_path=cf.get('shotpath','path')
 
 #读取机构名和id
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 jihou_name = xlSht.Cells(2, 1).Value
 customername_id = xlSht.Cells(2,7).Value
@@ -42,7 +42,7 @@ del xlxApp
 a=str(time.strftime("%m%d%H%M%S", time.localtime()))
 solution_name=((u'群星测试')+a)
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\product_configuration.xlsx')
 xlSht = xlxBook.Worksheets('sheet3')
 xlSht.Cells(2,1).Value=solution_name
 time.sleep(2)

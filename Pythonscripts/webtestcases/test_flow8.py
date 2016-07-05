@@ -41,20 +41,20 @@ DATABASE2=cf.get('database','dcf_payment')
 DATABASE3=cf.get('database','dcf_loan')
 #读取链属企业
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 chain_customer=xlSht.Cells(2, 1).Value  # 读取链属企业名称
 financing_bank_no=str(xlSht.Cells(2, 2).Value).replace(" ","")
 #读取核心企业
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
 xlSht = xlBook.Worksheets('Sheet1')
 core_customer=xlSht.Cells(2, 1).Value  # 读取核心企业名称
 xlBook.Close(SaveChanges=1)
 del xlApp
 #读取机构
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlBook.Worksheets('Sheet1')
 return_bank_no=str(xlSht.Cells(2, 2).Value).replace(" ","")
 institution_name=xlSht.Cells(2,1).Value
@@ -62,7 +62,7 @@ xlBook.Close(SaveChanges=1)
 del xlApp
 #读取核心企业
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
 xlSht = xlBook.Worksheets('Sheet1')
 core_customer=xlSht.Cells(2, 1).Value  # 读取核心企业名称
 xlBook.Close(SaveChanges=1)
@@ -101,7 +101,7 @@ class loan_flow(unittest.TestCase):
             time.sleep(5)
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
             xlBook = xlApp.Workbooks.Open(
-                r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+                r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):#对交易流水中的单据进行全部融资
                 click_xpath='//*[@id="'+str(xlSht.Cells(i,1).Value)+'"]/td[1]/input'
@@ -252,7 +252,7 @@ class loan_flow(unittest.TestCase):
         browser=self.browser
         browser.implicitly_wait(10)
         xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+        xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
         xlSht = xlBook.Worksheets('Sheet2')
         for i in range(2, xlSht.UsedRange.Rows.Count + 1):
             id_str = id_str + "'" + str(xlSht.Cells(i,1).Value) + "'" + ","
@@ -306,7 +306,7 @@ class loan_flow(unittest.TestCase):
             #根据资产包编号勾选所有融资单据
             ##########################################
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2,xlSht.UsedRange.Rows.Count+1):
                 package_id=xlSht.Cells(i, 6).Value
@@ -413,7 +413,7 @@ class loan_flow(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='asset_package_state']/li[3]/a").click()
             time.sleep(2)
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):
                 package_id = xlSht.Cells(i, 6).Value
@@ -492,7 +492,7 @@ class loan_flow(unittest.TestCase):
             #通过excel中数据循环查找验证各单据状态
             ############################################
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):
                 package_id =str(xlSht.Cells(i, 6).Value)
@@ -616,7 +616,7 @@ class loan_flow(unittest.TestCase):
             browser.find_element_by_xpath(".//*[@id='pageSizeName']//a[text()='500']").click()  # 分页选择500页
             time.sleep(2)
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):
                 package_id = str(xlSht.Cells(i, 6).Value)
@@ -713,7 +713,7 @@ class loan_flow(unittest.TestCase):
         # 根据settle_id查询payment_id
         ####################################
         xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+        xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
         xlSht = xlBook.Worksheets('Sheet2')
         # for i in range(2, xlSht.UsedRange.Rows.Count + 1):
         #     in_str = in_str + "'" + str(xlSht.Cells(cloum, 7)) + "'" + ","
@@ -749,7 +749,7 @@ class loan_flow(unittest.TestCase):
         #根据payment_id查询BP
         ###################################################
         xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+        xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
         xlSht = xlBook.Worksheets('Sheet2')
         # for i in range(2, xlSht.UsedRange.Rows.Count + 1):
         #     in_str1 = in_str1 + "'" + str(xlSht.Cells(cloum_2, 8)) + "'" + ","
@@ -820,7 +820,7 @@ class loan_flow(unittest.TestCase):
                     break
 
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):
                 amount=amount+float(xlSht.Cells(i,4).Value)-float(xlSht.Cells(i,5).Value)#取得放款的总额
@@ -884,7 +884,7 @@ class loan_flow(unittest.TestCase):
                     break
 
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2, xlSht.UsedRange.Rows.Count + 1):
                 settle_id = str(xlSht.Cells(i, 7).Value)
@@ -1048,7 +1048,7 @@ class loan_flow(unittest.TestCase):
                 break
 
         xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
+        xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 读取交易流水
         xlSht = xlBook.Worksheets('Sheet2')
         for i in range(2, xlSht.UsedRange.Rows.Count + 1):
             loan_document_no=str(xlSht.Cells(i, 2))

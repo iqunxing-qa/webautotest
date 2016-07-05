@@ -41,21 +41,21 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_loan')
 #读取合同配置信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\contract_information.xlsx')
 xlSht = xlBook.Worksheets('Sheet2')
 loan_proportion=float(xlSht.Cells(3, 7).Value)/100
 xlBook.Close(SaveChanges=1)
 del xlApp
 #读取合同信息
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\hetong.xlsx')
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\hetong.xlsx')
 xlSht = xlBook.Worksheets(u'额度账期参数')
 financing_proportion=float(xlSht.Cells(2, 4).Value)/100  # 读取链属企业名称
 xlBook.Close(SaveChanges=1)
 del xlApp
 #读取链属企业
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')  # 将随机生成的名称写入链属企业
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')  # 将随机生成的名称写入链属企业
 xlSht = xlBook.Worksheets('Sheet1')
 pattern = re.compile(r'\d*')
 chain_customer=xlSht.Cells(2, 1).Value  # 读取链属企业名称
@@ -64,7 +64,7 @@ xlBook.Close(SaveChanges=1)
 del xlApp
 #读取核心企业
 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
+xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')  # 将随机生成的名称写入链属企业
 xlSht = xlBook.Worksheets('Sheet1')
 core_customer=xlSht.Cells(2, 1).Value  # 读取核心企业名称
 xlBook.Close(SaveChanges=1)
@@ -78,7 +78,7 @@ class build_transaction_flow(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-        xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将D:\\1.xls改为要处理的excel文件路径
+        xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将D:\\1.xls改为要处理的excel文件路径
         xlSht = xlBook.Worksheets('sheet1')
         lcoal_time = str(time.strftime("%Y/%m/%d", time.localtime()))
         cls.start_time=lcoal_time
@@ -215,7 +215,7 @@ class build_transaction_flow(unittest.TestCase):
                 #产生的单据号写入transcation_flow.xlsx
                 xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
                 xlBook = xlApp.Workbooks.Open(
-                    r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将随机生成的名称写入链属企业
+                    r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将随机生成的名称写入链属企业
                 xlSht = xlBook.Worksheets('Sheet2')
                 for monkey in build_transaction_flow.monkey_list:
                     xlSht.Cells(cloum_2, 3).Value =monkey
@@ -255,7 +255,7 @@ class build_transaction_flow(unittest.TestCase):
             #############################
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
             xlBook = xlApp.Workbooks.Open(
-                r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
+                r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2,xlSht.UsedRange.Rows.Count+1):
                 amount=float(xlSht.Cells(i,3).Value)
@@ -332,7 +332,7 @@ class build_transaction_flow(unittest.TestCase):
             except NoSuchElementException,e:
                 print ""
             xlApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-            xlBook = xlApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将随机生成的名称写入链属企业
+            xlBook = xlApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')  # 将随机生成的名称写入链属企业
             xlSht = xlBook.Worksheets('Sheet2')
             for i in range(2,xlSht.UsedRange.Rows.Count+1):
                 amount=float(xlSht.Cells(i,3).Value)
