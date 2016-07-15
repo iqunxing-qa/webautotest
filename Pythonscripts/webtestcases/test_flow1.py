@@ -129,6 +129,8 @@ class Core_Enterprise(unittest.TestCase):
             else:
                 self.assertTrue(False, "Generated invitation connection,but unable to enter the registration page!")
         except Exception, e:
+            xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
@@ -187,6 +189,8 @@ class Core_Enterprise(unittest.TestCase):
             else:
                 self.assertTrue(False, "客户注册失败")
         except Exception, e:
+            xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
@@ -436,6 +440,8 @@ class Core_Enterprise(unittest.TestCase):
                 if wait_time==20:
                     break
         except Exception, e:
+            xlBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()

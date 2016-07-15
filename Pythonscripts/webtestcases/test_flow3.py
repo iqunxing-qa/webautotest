@@ -8,9 +8,7 @@ import mysql.connector
 from selenium.common.exceptions import NoSuchElementException
 import  StringIO
 import traceback
-from classmethod import findStr
-from classmethod import login
-import random
+from classmethod import *
 import win32com.client
 import sys
 reload(sys)
@@ -39,11 +37,14 @@ product_type= xlSht.Cells(2, 2).Value
 product_id=xlSht.Cells(2,3).Value
 xlxBook.Close(SaveChanges=1)
 del xlxApp
+#获取Firefox的profile
+propath=getprofile.get_profile()
+profile=webdriver.FirefoxProfile(propath)
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
     def setUpClass(cls):
-        cls.browser = webdriver.Firefox()
+        cls.browser = webdriver.Firefox(profile)
         cls.browser.maximize_window()
     def test1_Create_product(self):
         (u"新建产品")
@@ -153,11 +154,9 @@ class Core_Enterprise(unittest.TestCase):
             #查看详情页面
             browser.find_element_by_xpath("//tr/td[text()='"+ product_name +"']/following::td[4]/a[1]").click()#点击查看
             time.sleep(3)
-            name1=browser.find_element_by_xpath('''.//label[@class="col-sm-2 control-label"][contains(@for,'product-name')]''').text
-            if name1==product_name:
-                self.assertTrue(True,'新建产品后详情页面显示正常')
-            else:
-                self.assertFalse(True,'新建产品后详情页面显示异常')
+            name1=browser.find_element_by_xpath('''//label[text()='产品名称']/following-sibling::div''').text
+            if name1!=product_name:
+                print "新建产品后详情页面显示不正常"
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
@@ -168,7 +167,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.close()
-        cls.browser.quit()
+    # @classmethod
+    # def tearDownClass(cls):
+    #     cls.browser.close()
+    #     cls.browser.quit()

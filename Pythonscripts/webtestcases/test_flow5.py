@@ -6,7 +6,7 @@ import ConfigParser
 import  StringIO
 import traceback
 from selenium.webdriver.support.ui import Select
-from classmethod import findStr
+from classmethod import *
 from selenium.common.exceptions import NoSuchElementException
 from classmethod import login
 import mysql.connector
@@ -64,12 +64,14 @@ pattern = re.compile(r'\d*')
 agency_id= re.search(pattern, str(xlSht.Cells(2, 2).Value)).group()
 xlxBook.Close(SaveChanges=1)
 del xlxApp
-
+#获取Firefox的profile
+propath=getprofile.get_profile()
+profile=webdriver.FirefoxProfile(propath)
 class Core_Enterprise(unittest.TestCase):
     (u"核心模块")
     @classmethod
     def setUpClass(cls):
-        cls.browser = webdriver.Firefox()
+        cls.browser = webdriver.Firefox(profile)
         cls.browser.maximize_window()
 
     def test_Create_program(self):
@@ -119,7 +121,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(2)
             browser.find_element_by_id('back-go').click()
             time.sleep(2)
-            browser.find_element_by_id("search-button").click()
+            browser.refresh()
             #检验是否新建成功
             try:
                conn = mysql.connector.connect(host=HOST,user=USER,passwd=PASSWORD,db=DATABASE,port=PORT)
@@ -140,8 +142,9 @@ class Core_Enterprise(unittest.TestCase):
                conn.close()
             except mysql.connector.Error, e:
                 print e.message
-            time.sleep(2)
-            path="//tr/td[text()="+ solution_name1 +"]"
+            time.sleep(4)
+            path="//tr/td[text()='"+ solution_name+"']"
+            print path
             if self.browser.find_element_by_xpath(path).is_displayed():
                 self.assertTrue(True,"方案新建成功")
             else:
@@ -170,6 +173,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             #检验是否启用成功
             status=browser.find_element_by_xpath("//tr/td[text()='"+solution_name+"']/following::td[4]").text
+            print  status
             if status==u'已启用':
                 self.assertTrue(True,'方案启用成功')
             else:
@@ -193,7 +197,7 @@ class Core_Enterprise(unittest.TestCase):
             time.sleep(1)
             browser.get_screenshot_as_file(shot_path + browser.title + ".png")
             self.assertTrue(False, print_message)
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.close()
-        cls.browser.quit()
+    # @classmethod
+    # def tearDownClass(cls):
+    #     cls.browser.close()
+    #     cls.browser.quit()

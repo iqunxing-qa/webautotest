@@ -40,8 +40,8 @@ alltestcase=creatsuite()
 #runner.run(testunit)
 #定义个报告存放路径，支持相对路径。
 month = time.strftime("%Y-%m",time.localtime(time.time()))
-#path =  r'D:\\phpStudy\WWW\testreport\\'+month
-path =  r'D:\\'+month
+path =  r'D:\\phpStudy\WWW\testreport\\'+month
+#path =  r'D:\\'+month
 try:
     os.mkdir(path)
 except:

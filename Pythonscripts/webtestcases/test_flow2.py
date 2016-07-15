@@ -51,9 +51,12 @@ pattern = re.compile(r'\d*')
 depart_mobile= re.search(pattern, str(xlSht.Cells(2, 6).Value)).group()
 xlxBook.Close(SaveChanges=1)
 del xlxApp
+#获取Firefox的profile
+propath=getprofile.get_profile()
+profile=webdriver.FirefoxProfile(propath)
 class department_register(unittest.TestCase):
     u"机构注册验证"
-    jigou_name=""
+    jigou_name=u"机构测试0706102353"
     @classmethod
     def setUpClass(cls):
         cls.browser=webdriver.Firefox(profile)
@@ -107,6 +110,8 @@ class department_register(unittest.TestCase):
             browser.find_element_by_css_selector(".btn.btn-danger.createInviteBtn").click()
             time.sleep(10)
         except NoSuchElementException,e:
+            xlxBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlxApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
@@ -204,6 +209,8 @@ class department_register(unittest.TestCase):
             browser.execute_script("arguments[0].click()", browser.find_element_by_xpath(".//*[@id='index-area']/div/div[1]/div[7]/button"))
             time.sleep(5)
         except NoSuchElementException,e:
+            xlxBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlxApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
@@ -355,6 +362,8 @@ class department_register(unittest.TestCase):
             xlxBook.Close(SaveChanges=1)
             del xlxApp
         except NoSuchElementException,e:
+            xlxBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlxApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
@@ -423,7 +432,18 @@ class department_register(unittest.TestCase):
             browser.find_element_by_xpath('''.//li[@class="nav-list account-list"]/div''').click() # 点击账务管理
             time.sleep(2)
             browser.find_element_by_xpath('''.//li[@class="nav-list account-list"]/ul/li[2]/a''').click()#点击手工记账
-            time.sleep(4)
+            wait_time = 0
+            while True:
+                time.sleep(4)
+                try:
+                    if browser.find_element_by_xpath("//div[@class='loading']").is_displayed():
+                        wait_time = wait_time + 1
+                    else:
+                        break
+                except NoSuchElementException, e:
+                    break
+                if wait_time == 50:
+                    break
             browser.find_element_by_xpath('''.//*[@class="select2-selection__placeholder"][contains(text(),'交易场景')]''').click()
             time.sleep(4)
             browser.find_element_by_xpath('''.//input[@class="select2-search__field"]''').send_keys(u'一般户充值')
@@ -454,11 +474,13 @@ class department_register(unittest.TestCase):
             recharge_money=recharge_money.replace(',','')
             recharge_money=recharge_money.replace('.00','')
             if recharge_money=='1000000' :
-                self.assertTrue(True,'充值成功')
+                print '充值成功'
             else:
-                self.assertTrue(False,'充值失败')
+                print '充值失败'
             time.sleep(4)
         except NoSuchElementException,e:
+            xlxBook.Close(SaveChanges=1)  # 完成 关闭保存文件
+            del xlxApp
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
             message = fp.getvalue()
