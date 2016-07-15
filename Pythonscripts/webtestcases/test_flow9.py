@@ -28,9 +28,9 @@ PORT=cf.get('database','port')
 DATABASE=cf.get('database','dcf_contract')
 
 #读取单据编号receipt_id,单据金额receipt_money
-#os.system('D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
+#os.system('D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\transaction_flow.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 list_receipt_id=[]#存放单据编号
 list_receipt_money=[]#存放单据金额
@@ -43,6 +43,7 @@ for i in range(2,5):    #获取需要还款的单据编号和金额
     receipt_money=receipt_money+'0'
     list_receipt_id.append(receipt_id)
     list_receipt_money.append(receipt_money)
+print list_receipt_id,list_receipt_money
 #读取融资金额和loan_document_id
 xlSht2 = xlxBook.Worksheets('Sheet2')
 for i in range(2,5):    #获取需要还款的单据对应的融资金额
@@ -51,6 +52,7 @@ for i in range(2,5):    #获取需要还款的单据对应的融资金额
     list_financing_money.append(financing_money)
     loan_document_id=str(xlSht2.Cells(i, 1).Value)
     list_loan_document_id.append(loan_document_id)
+print list_financing_money,list_loan_document_id
 xlxBook.Close(SaveChanges=1)
 del xlxApp
 #计算尾款
@@ -61,7 +63,7 @@ for a in range(len(list_receipt_money)):
             list_retainage_money.append( retainage_money)
 #读取机构名和银行账号
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\institution_data.xlsx')
 xlSht = xlxBook.Worksheets('sheet1')
 jigou_name= xlSht.Cells(2, 1).Value
 jigou_bank_no=xlSht.Cells(2, 2).Value
@@ -69,7 +71,7 @@ xlxBook.Close(SaveChanges=1)
 del xlxApp
 #读取买方企业名称
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\core_customer.xlsx')
 xlSht = xlxBook.Worksheets('Sheet1')
 core_enterprise_name = xlSht.Cells(2, 1).Value
 core_bank_no=xlSht.Cells(2,2).Value
@@ -77,7 +79,7 @@ xlxBook.Close(SaveChanges=1)
 del xlxApp
 #读取链属企业名称和银行账号
 xlxApp = win32com.client.Dispatch('Excel.Application')  # 打开EXCEL
-xlxBook=xlxApp.Workbooks.Open(r'D:\\Workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
+xlxBook=xlxApp.Workbooks.Open(r'D:\\workspace\\Pythonscripts\\testdatas\\chain_customer.xlsx')
 xlSht = xlxBook.Worksheets('Sheet1')
 chain_enterprise_name = xlSht.Cells(2, 1).Value
 chain_bank_no=xlSht.Cells(2,2).Value
@@ -301,6 +303,7 @@ class Core_Enterprise(unittest.TestCase):
 
             Query__settlement_voucher(list_zhifu,sum_money,u'单据金额',core_enterprise_name,jigou_name)
             Query__settlement_voucher(list_benjin,list_financing_money,u'本金',jigou_name,jigou_name)
+            Query__settlement_voucher(list_weikuan,list_retainage_money,u'尾款',jigou_name,chain_enterprise_name)
 
             ###########################################################################################################
             #                             付款凭证校验                                                                #
@@ -417,6 +420,8 @@ class Core_Enterprise(unittest.TestCase):
                 browser.find_element_by_xpath("//button[text()=' 今 天']").click()
                 time.sleep(2)
                 browser.find_element_by_id("select_capital").click() #选择交易方向
+                if enterprise_name!=core_enterprise_name:
+                    browser.find_element_by_id("select_capital").click() #选择交易方向
                 time.sleep(2)
                 if trade_type==u'收入':
                     browser.find_element_by_xpath(".//button[@id='select_capital']/following::ul/li[3]/a[contains(text(),'"+trade_type+"')]").click()
@@ -424,6 +429,8 @@ class Core_Enterprise(unittest.TestCase):
                     browser.find_element_by_xpath(".//button[@id='select_capital']/following::ul/li[4]/a[contains(text(),'"+trade_type+"')]").click()
                 time.sleep(4)
                 browser.find_element_by_xpath("//button[@id='select_trade']").click()#选择记账类型
+                if enterprise_name!=core_enterprise_name:
+                   browser.find_element_by_xpath("//button[@id='select_trade']").click()#选择记账类型
                 time.sleep(4)
                 if type==u'支付':
                     browser.find_element_by_xpath("//button[@id='select_trade']/following::ul[1]/li[4]/a[text()='"+type+"']").click()#筛选出金额类型
@@ -446,14 +453,14 @@ class Core_Enterprise(unittest.TestCase):
                         traceback.print_exc(file=fp)
                         message = fp.getvalue()
                         print message
+                    browser.execute_script("document.documentElement.scrollTop=0")
                     time.sleep(2)
 
             #检查还款账户支出金额明细
             Bank_detail(core_enterprise_name,core_bank_no,u'支出',u'支付',sum_money)
             #检查机构账户收入本金明细
             Bank_detail(jigou_name,jigou_bank_no,u'收入',u'支付（本金）',list_financing_money)
-            #检查回款账户收入金额明细
-
+            Bank_detail(chain_enterprise_name,chain_bank_no,u'收入',u'支付（尾款）',sum_money)
         except Exception, e:
             fp = StringIO.StringIO()  # 创建内存文件对象
             traceback.print_exc(file=fp)
